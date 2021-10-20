@@ -10,8 +10,14 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            開始編寫
+            <%--主題與前言--%>
+            <div style="text-align:center">
+                <h1><asp:Label ID="Lable_M_title" runat="server"></asp:Label></h1>
+            </div>
+            <br />
+            <asp:Label ID="Lable_M_Summary" runat="server"></asp:Label>
         </div>
+        <%--主題與前言--%>
         <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
     </form>
 </body>
