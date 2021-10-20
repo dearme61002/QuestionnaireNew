@@ -12,6 +12,7 @@
         <div>
             開始編寫
         </div>
+        <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
     </form>
 </body>
 </html>
