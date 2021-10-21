@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,10 +12,10 @@ namespace Questionnaire
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
-   int M_id = 0;
+        int M_id = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-         
+
             int D1_id = 0;
             string D1_title, D1_summary;
             Boolean D1_mustKeyin;
@@ -122,7 +123,7 @@ namespace Questionnaire
                             TextBox CB_Q3 = new TextBox();
                             CB_Q3.ID = "D1_" + D1_id;
                             PlaceHolder1.Controls.Add(CB_Q3);
-                           
+
                             break;
                         default:
                             break;
@@ -132,7 +133,7 @@ namespace Questionnaire
                     PlaceHolder1.Controls.Add(trtdend);
                     table_i++;
                 }
-               
+
                 Literal end = new Literal();
                 end.Text = "</table>";
                 PlaceHolder1.Controls.Add(end);
@@ -142,8 +143,33 @@ namespace Questionnaire
         protected void Button1_Click(object sender, EventArgs e)
         {
             getPageA getPageA = new getPageA();
-            int Qno= getPageA.Compute_QNo(M_id);//算出有幾個題目
-            
+            int Qno = getPageA.Compute_QNo(M_id);//算出有幾個題目
+            ArrayList D1_AL = getPageA.Take_D1_ID(M_id);
+            for (int i = 0; i < Qno; i++)
+            {
+                String WebcontrolID = "D1_" + D1_AL[i];
+
+                switch (PlaceHolder1.FindControl(WebcontrolID).ToString())
+                {
+                    case "System.Web.UI.WebControls.RadioButtonList":
+                        RadioButtonList CBL2 = (RadioButtonList)PlaceHolder1.FindControl(WebcontrolID);
+                        if (CBL2.SelectedItem == null)
+                        {
+                            Response.Write("沒有寫");
+                        }
+                        else
+                        {
+                            Response.Write(CBL2.SelectedItem.Text);
+                        }
+
+
+
+                        break;
+
+                    default:
+                        break;
+                };
+            };
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-  public  class getPageA//共用部分
+    public class getPageA//共用部分
     {
         /// <summary>
         /// 計算這個問卷有多少題目
@@ -21,8 +22,29 @@ namespace DAL
             {
                 new SqlParameter("@M_id",M_id)
         };
-           int count = Convert.ToInt32(sqlhelp.executeScalarsql(sql, sqlParameters, false)) ;
+            int count = Convert.ToInt32(sqlhelp.executeScalarsql(sql, sqlParameters, false));
             return count;
+        }
+
+        public ArrayList Take_D1_ID(int M_id)
+        {
+            ArrayList resultList = new ArrayList();
+            string sql = "select * from Question_D1 where M_id = @M_id";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+         {
+                new SqlParameter("@M_id",M_id)
+     };
+            SqlDataReader sqlDataReader = sqlhelp.executeReadesql(sql, sqlParameters, false);
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    resultList.Add(sqlDataReader["D1_id"]);
+                }
+            }
+            sqlDataReader.Close();
+            return resultList;
+
         }
 
 
