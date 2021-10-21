@@ -161,11 +161,23 @@ namespace Questionnaire
                         {
                             Response.Write(CBL2.SelectedItem.Text);
                         }
-
-
-
                         break;
-
+                    case "System.Web.UI.WebControls.CheckBoxList":
+                        CheckBoxList CBL1 = (CheckBoxList)PlaceHolder1.FindControl(WebcontrolID);
+                        String CBL1_Value = string.Empty;
+                        for (int j = 0; j < (CBL1.Items.Count); j++)
+                        {
+                            if (CBL1.Items[j].Selected)
+                            {
+                                CBL1_Value = CBL1_Value + CBL1.Items[j].Text + ";";
+                            }
+                        }
+                        Response.Write(CBL1_Value);
+                        break;
+                        case "System.Web.UI.WebControls.TextBox":
+                        TextBox CBL3 = (TextBox)PlaceHolder1.FindControl(WebcontrolID);
+                        Response.Write(CBL3.Text);
+                        break;
                     default:
                         break;
                 };
