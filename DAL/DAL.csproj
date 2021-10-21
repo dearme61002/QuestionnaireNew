@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="getPage.cs" />
+    <Compile Include="getPageA.cs" />
     <Compile Include="sqlhelp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

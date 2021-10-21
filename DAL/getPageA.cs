@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-  public  class getPage
+  public  class getPageA//共用部分
     {
-        
-    
+      
+
     }
 }
