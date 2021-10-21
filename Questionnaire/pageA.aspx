@@ -24,6 +24,9 @@
         <%--問卷--%>
         <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
         <%--問卷--%>
+        <div style="text-align:center;margin-top:20px">
+            <asp:Button ID="Button1" runat="server" Text="Button" Font-Size="60px" OnClick="Button1_Click" />
+        </div>
     </form>
 </body>
 </html>

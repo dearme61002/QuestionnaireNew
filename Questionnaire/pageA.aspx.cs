@@ -11,9 +11,10 @@ namespace Questionnaire
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
+   int M_id = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            int M_id = 0;
+         
             int D1_id = 0;
             string D1_title, D1_summary;
             Boolean D1_mustKeyin;
@@ -117,6 +118,12 @@ namespace Questionnaire
                             PlaceHolder1.Controls.Add(CB_Q2);
                             sqlDataReaderRB.Close();
                             break;
+                        case "TB"://文字輸入框(TextBox)
+                            TextBox CB_Q3 = new TextBox();
+                            CB_Q3.ID = "D1_" + D1_id;
+                            PlaceHolder1.Controls.Add(CB_Q3);
+                           
+                            break;
                         default:
                             break;
                     }
@@ -130,6 +137,13 @@ namespace Questionnaire
                 end.Text = "</table>";
                 PlaceHolder1.Controls.Add(end);
             }
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            getPageA getPageA = new getPageA();
+            int Qno= getPageA.Compute_QNo(M_id);//算出有幾個題目
+            
         }
     }
 }
