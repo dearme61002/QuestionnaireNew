@@ -33,8 +33,12 @@
                  </div>
                 <div>
                     <span style="margin-right:20px;font-size:30px">開始/結束</span>
-                    <asp:TextBox ID="txtStartDate" runat="server" Height="20px" style="font-size:30px;line-height:30px"></asp:TextBox>
-                    <asp:TextBox ID="txtEndDate" runat="server" Height="20px" style="font-size:30px;line-height:30px"></asp:TextBox>
+                    <asp:TextBox ID="txtStartDate" runat="server" Height="20px" style="font-size:30px;line-height:30px" ReadOnly="True"></asp:TextBox>
+                    <asp:TextBox ID="txtEndDate" runat="server" Height="20px" style="font-size:30px;line-height:30px" ReadOnly="True"></asp:TextBox>
+                    <asp:Button ID="searchButton" runat="server" Text="按鈕" Height="30px" style="font-size:20px;line-height:20px"/>
+                </div>
+                <div>
+                    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
                 </div>
             </div>
         </div>
