@@ -20,6 +20,13 @@ namespace Questionnaire
                     {
                         HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
                         dd.NavigateUrl = string.Empty;
+                      Label state = (Label)GridView1.Rows[i].FindControl("state");
+                        state.Text = "已完結";
+                    }
+                    else
+                    {
+                        Label state = (Label)GridView1.Rows[i].FindControl("state");
+                        state.Text = "投票中";
                     }
                 }
 

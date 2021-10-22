@@ -50,6 +50,11 @@
                                 </ItemTemplate>
                                 <ItemStyle Font-Bold="True" Font-Size="Larger" />
                             </asp:TemplateField>
+                            <asp:TemplateField HeaderText="狀態">
+                                <ItemTemplate>
+                                    <asp:Label ID="state" runat="server" Text=''></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:BoundField DataField="start_time" HeaderText="開始時間" SortExpression="start_time" DataFormatString="{0:yyyy-MM-dd}" />
                             <asp:TemplateField HeaderText="結束時間" SortExpression="end_time">
                                 <EditItemTemplate>
