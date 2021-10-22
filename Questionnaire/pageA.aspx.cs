@@ -145,6 +145,13 @@ namespace Questionnaire
             getPageA getPageA = new getPageA();
             int Qno = getPageA.Compute_QNo(M_id);//算出有幾個題目
             ArrayList D1_AL = getPageA.Take_D1_ID(M_id);
+            string AM_id = Guid.NewGuid().ToString();
+
+            //寫入Answer_M tabley 資料
+            DB into_Answer = new DB();
+            into_Answer.pageAtoAnswer_M(AM_id, M_id);
+
+
             for (int i = 0; i < Qno; i++)
             {
                 String WebcontrolID = "D1_" + D1_AL[i];
@@ -155,10 +162,12 @@ namespace Questionnaire
                         RadioButtonList CBL2 = (RadioButtonList)PlaceHolder1.FindControl(WebcontrolID);
                         if (CBL2.SelectedItem == null)
                         {
-                            Response.Write("沒有寫");
+                            Response.Write("null");
+                            into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), string.Empty);
                         }
                         else
                         {
+                            into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), CBL2.SelectedItem.Text);
                             Response.Write(CBL2.SelectedItem.Text);
                         }
                         break;
@@ -172,11 +181,13 @@ namespace Questionnaire
                                 CBL1_Value = CBL1_Value + CBL1.Items[j].Text + ";";
                             }
                         }
+                        into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), CBL1_Value);
                         Response.Write(CBL1_Value);
                         break;
                         case "System.Web.UI.WebControls.TextBox":
                         TextBox CBL3 = (TextBox)PlaceHolder1.FindControl(WebcontrolID);
                         Response.Write(CBL3.Text);
+                        into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), CBL3.Text);
                         break;
                     default:
                         break;
