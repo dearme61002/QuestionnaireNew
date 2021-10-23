@@ -8,6 +8,14 @@
     <title></title>
 </head>
 <body>
+    <div style="float:left">
+     <asp:Label ID="front" runat="server" Text="前台" Style="font-size: 100px"></asp:Label>
+    </div>
+    <div style="float:right;margin-right:50px">
+        <h3>投票中</h3>
+        <asp:Label ID="frontLabel1" runat="server" Text="Label"></asp:Label>
+    </div>
+    <div style="clear:both"></div>
     <form id="form1" runat="server">
         <div>
             <%--主題與前言--%>

@@ -19,18 +19,35 @@ namespace Questionnaire
             int D1_id = 0;
             string D1_title, D1_summary;
             Boolean D1_mustKeyin;
-            string sql = "SELECT top 1 * from Question_M where M_id=1";
-            SqlDataReader dr = sqlhelp.executeReadesql(sql);
+            string StarTime=string.Empty;
+            string Endtime = string.Empty;
+            //get的值
+            string getM_id = Request.QueryString["M_id"];
+            //取資料入的值
+            string sql = "SELECT top 1 * from Question_M where M_id=@M_id";
+            SqlParameter[] Getsqls = new SqlParameter[]
+            {
+                new SqlParameter("@M_id",getM_id)
+            };
+            SqlDataReader dr = sqlhelp.executeReadesql(sql, Getsqls,false);
             Literal br = new Literal();
             br.Text = "</br>";
+            
+          
+           
             if (dr.HasRows)
             {
                 dr.Read();
                 Lable_M_title.Text = dr["M_title"].ToString();
-                Lable_M_Summary.Text = dr["M_summary"].ToString();
+                Lable_M_Summary.Text = dr["M_summary"].ToString(); 
+                StarTime = string.Format("{0:yyyy/MM/dd}", dr["start_time"]);
+                Endtime = string.Format("{0:yyyy/MM/dd}", dr["end_time"]);
                 M_id = (int)dr["M_id"];
                 dr.Close();
             }
+            //投票中的時間
+            
+            frontLabel1.Text = StarTime + "~" + Endtime;
             //讀取這一份問卷的每一個題目
             string sql2 = "select * from Question_D1 where M_id=@M_id";
             SqlParameter[] sqlParameters = new SqlParameter[]
