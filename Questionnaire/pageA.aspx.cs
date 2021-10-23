@@ -85,7 +85,7 @@ namespace Questionnaire
                     }
                     else
                     {
-                        label_table_tr.Text = "<tr><td bgcolor=\"orange\">";
+                        label_table_tr.Text = "<tr><td bgcolor=\"#E3E3E3\">";
                     }
                     PlaceHolder1.Controls.Add(label_table_tr);
                     //共用部分(主題，說明，是否要填寫)
