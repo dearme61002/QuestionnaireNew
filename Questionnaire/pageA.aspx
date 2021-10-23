@@ -29,6 +29,22 @@
             </p>
         </div>
         <%--主題與前言--%>
+        <%--固定問題--%>
+        <div style="margin-left:20px;margin-bottom:20px">
+            <div>
+            <span>姓名 :</span><asp:TextBox ID="name" runat="server"></asp:TextBox>
+            </div>
+            <div>
+            <span>手機 :</span><asp:TextBox ID="phone" runat="server"></asp:TextBox>
+            </div>
+            <div>
+            <span>E-mail :</span><asp:TextBox ID="email" runat="server"></asp:TextBox>
+            </div>
+            <div>
+            <span>年齡 :</span><asp:TextBox ID="age" runat="server"></asp:TextBox>
+            </div>
+        </div>
+        <%--固定問題--%>
         <%--問卷--%>
         <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
         <%--問卷--%>

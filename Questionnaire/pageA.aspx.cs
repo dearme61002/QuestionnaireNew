@@ -166,7 +166,18 @@ namespace Questionnaire
 
             //寫入Answer_M tabley 資料
             DB into_Answer = new DB();
-            into_Answer.pageAtoAnswer_M(AM_id, M_id);
+            int getage;
+            try
+            {
+              getage = Convert.ToInt32(age.Text);
+            }
+            catch (Exception)
+            {
+                getage = 0;
+                return;
+            }
+             
+            into_Answer.pageAtoAnswer_M(AM_id, M_id,name.Text,phone.Text,email.Text, getage);
 
 
             for (int i = 0; i < Qno; i++)
