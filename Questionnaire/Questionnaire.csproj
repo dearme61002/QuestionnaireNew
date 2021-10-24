@@ -111,6 +111,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="front06.aspx" />
+    <Content Include="front10.aspx" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -163,6 +164,13 @@
     </Compile>
     <Compile Include="front06.aspx.designer.cs">
       <DependentUpon>front06.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="front10.aspx.cs">
+      <DependentUpon>front10.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="front10.aspx.designer.cs">
+      <DependentUpon>front10.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
