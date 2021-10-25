@@ -18,17 +18,28 @@ namespace Questionnaire
             //int getM_id = Request.QueryString["M_id"];//等等使用
             int getM_id = 1;
             string title = string.Empty;
-            int countTitle = 0;
+            int countQuestion_D1 = 0;
+            string M_summary = string.Empty;
 
 
             //取主題
-            string sql = "SELECT top 1 M_title from Question_M where M_id = @M_id ";
+            string sql = "SELECT top 1 M_title,M_summary from Question_M where M_id = @M_id ";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
                 new SqlParameter("@M_id",getM_id)
              };
-            title = sqlhelp.executeScalarsql(sql, sqlParameters, false).ToString();
-
+            SqlDataReader sqlDataReader= sqlhelp.executeReadesql(sql, sqlParameters, false);
+            sqlDataReader.Read();
+            LabelTitle.Text = sqlDataReader["M_title"].ToString();
+            LabelM_summary.Text= sqlDataReader["M_summary"].ToString();
+            sqlDataReader.Close();
+            //取問題資料
+            sql = "select count(1) from Question_D1 where M_id = @M_id";
+            SqlParameter[] sqlParameters2 = new SqlParameter[]
+            {
+                new SqlParameter("@M_id",getM_id)
+            };
+            countQuestion_D1 =Convert.ToInt32(sqlhelp.executeScalarsql(sql, sqlParameters2, false));
             //取資料
 
 
@@ -44,33 +55,34 @@ namespace Questionnaire
                 {
 
                     StringBuilder cstext1 = new StringBuilder();
+                //跑大回圈
                 ///
-                cstext1.Append("<div id='piechart_3d' style='width: 900px; height: 500px; ' ></div>");//html
-                cstext1.Append("<div id='piechart_2d' style='width: 900px; height: 500px; ' ></div>");//html
+                for (int i = 0; i < countQuestion_D1; i++)
+                {
+                cstext1.Append("<div id='piechart_"+i+"' style='width: 900px; height: 500px; ' ></div>");//html
+                }
                 cstext1.Append("<script type=text/javascript>");
+                for (int i = 0; i < countQuestion_D1; i++)
+                {
+                 
                 cstext1.Append("google.charts.load('current', {packages:['corechart']});");
-                cstext1.Append("google.charts.setOnLoadCallback(drawChart);");
-                cstext1.Append("function drawChart() {");
+                cstext1.Append("google.charts.setOnLoadCallback(drawChart"+i+");");
+                cstext1.Append("function drawChart"+i+"() {");
                 cstext1.Append("var data = google.visualization.arrayToDataTable([");
                 cstext1.Append("['Task', 'Hours per Day'],");
+                //跑回圈
                 cstext1.Append("['Work',     11]");
+                //跑回圈
                 cstext1.Append(" ]);");
                 cstext1.Append("var options = {title: '"+title+ "',is3D: true,}; ");//設定主題
-                cstext1.Append("var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));");
+                cstext1.Append("var chart = new google.visualization.PieChart(document.getElementById('piechart_" + i + "'));");
                 cstext1.Append("chart.draw(data, options);}");
+                }
 
 
+                //跑大回圈
                 ////
-                cstext1.Append("google.charts.load('current', {packages:['corechart']});");
-                cstext1.Append("google.charts.setOnLoadCallback(drawChart2);");
-                cstext1.Append("function drawChart2() {");
-                cstext1.Append("var data = google.visualization.arrayToDataTable([");
-                cstext1.Append("['Task', 'Hours per Day'],");
-                cstext1.Append("['Work',     11]");
-                cstext1.Append(" ]);");
-                cstext1.Append("var options = {title: '" + title + "wqwqw',is3D: true,}; ");//設定主題
-                cstext1.Append("var chart = new google.visualization.PieChart(document.getElementById('piechart_2d'));");
-                cstext1.Append("chart.draw(data, options);}");
+
 
 
 
