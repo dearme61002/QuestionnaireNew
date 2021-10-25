@@ -20,7 +20,7 @@ namespace Questionnaire
             string title = string.Empty;
             int countQuestion_D1 = 0;
             string M_summary = string.Empty;
-
+            string D1_title = string.Empty;
 
             //取主題
             string sql = "SELECT top 1 M_title,M_summary from Question_M where M_id = @M_id ";
@@ -62,9 +62,22 @@ namespace Questionnaire
                 cstext1.Append("<div id='piechart_"+i+"' style='width: 900px; height: 500px; ' ></div>");//html
                 }
                 cstext1.Append("<script type=text/javascript>");
+                //取D1_title與D1_id與D1_type
+                string sqlQuestion_D1 = "select * from Question_D1 where M_id =@M_id";
+                    SqlParameter[] parameterssqlQuestion_D1 = new SqlParameter[]
+                    {
+                        new SqlParameter("@M_id",getM_id)
+                    };
+                 SqlDataReader DBQuestion_D1 = sqlhelp.executeReadesql(sqlQuestion_D1, parameterssqlQuestion_D1, false);
+                //取D1_title與D1_id與D1_type
                 for (int i = 0; i < countQuestion_D1; i++)
                 {
-                 
+                    //取D1_title與D1_id與D1_type
+                    
+                    
+                    DBQuestion_D1.Read();
+                    D1_title = DBQuestion_D1["D1_title"].ToString();
+
                 cstext1.Append("google.charts.load('current', {packages:['corechart']});");
                 cstext1.Append("google.charts.setOnLoadCallback(drawChart"+i+");");
                 cstext1.Append("function drawChart"+i+"() {");
@@ -74,7 +87,7 @@ namespace Questionnaire
                 cstext1.Append("['Work',     11]");
                 //跑回圈
                 cstext1.Append(" ]);");
-                cstext1.Append("var options = {title: '"+title+ "',is3D: true,}; ");//設定主題
+                cstext1.Append("var options = {title: '"+D1_title+ "',is3D: true,}; ");//設定主題
                 cstext1.Append("var chart = new google.visualization.PieChart(document.getElementById('piechart_" + i + "'));");
                 cstext1.Append("chart.draw(data, options);}");
                 }
