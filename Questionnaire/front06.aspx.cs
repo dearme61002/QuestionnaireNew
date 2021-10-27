@@ -20,7 +20,7 @@ namespace Questionnaire
                     {
                         HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
                         dd.NavigateUrl = string.Empty;
-                      Label state = (Label)GridView1.Rows[i].FindControl("state");
+                        Label state = (Label)GridView1.Rows[i].FindControl("state");
                         state.Text = "已完結";
                     }
                     else
@@ -29,7 +29,7 @@ namespace Questionnaire
                         state.Text = "投票中";
                     }
                 }
-
+                GridView1.DataSourceID = "SqlDataSourceALL";
 
 
             }
@@ -38,6 +38,39 @@ namespace Questionnaire
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void searchButton_Click(object sender, EventArgs e)
+        {
+
+
+            if (TitleTextBoxSearch.Text == string.Empty && txtStartDate.Text == string.Empty && txtEndDate.Text == string.Empty)
+            {
+                GridView1.DataSourceID = "SqlDataSourceALL";
+            }
+            else if (TitleTextBoxSearch.Text != string.Empty && txtStartDate.Text == string.Empty && txtEndDate.Text == string.Empty)
+            {
+                GridView1.DataSourceID = "SqlDataSource1";
+            }
+            else if (TitleTextBoxSearch.Text == string.Empty && txtStartDate.Text != string.Empty && txtEndDate.Text != string.Empty)
+            {
+                GridView1.DataSourceID = "SqlDataSourceTIME";
+            }
+            else if (TitleTextBoxSearch.Text != string.Empty && txtStartDate.Text != string.Empty && txtEndDate.Text != string.Empty)
+            {
+                GridView1.DataSourceID = "SqlDataSourcefalst";
+
+            }
+
+
+        }
+
+        protected void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            TitleTextBoxSearch.Text = string.Empty;
+            txtStartDate.Text = string.Empty;
+            txtEndDate.Text = string.Empty;
+            GridView1.DataSourceID = "SqlDataSourceALL";
         }
     }
 }

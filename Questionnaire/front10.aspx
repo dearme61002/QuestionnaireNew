@@ -10,7 +10,7 @@
 
 </head>
 <body>
-    
+    <div style="text-align:center;width:1000px;margin-right:auto;margin-left:auto">
     <form id="form1" runat="server">
         <div style="text-align:center">
         <asp:Label ID="LabelTitle" runat="server" Text="LabelTitle"></asp:Label>
@@ -19,5 +19,6 @@
         <asp:Label ID="LabelM_summary" runat="server" Text="Label"></asp:Label>
 </div>
     </form>
+</div>
 </body>
 </html>
