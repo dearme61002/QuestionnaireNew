@@ -221,6 +221,13 @@ namespace Questionnaire
                         break;
                 };
             };
+
+            Response.Redirect("front10.aspx?M_id="+M_id);
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("front06.aspx");
         }
     }
 }

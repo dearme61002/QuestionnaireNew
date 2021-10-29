@@ -18,6 +18,10 @@
         <div style="text-align:center">
         <asp:Label ID="LabelM_summary" runat="server" Text="Label"></asp:Label>
 </div>
+        <div style="text-align:left;margin-top:20px">
+             
+             <asp:Button ID="Button2" runat="server" Text="回前台搜尋" Font-Size="35px" OnClick="Button2_Click" />
+        </div>
     </form>
 </div>
 </body>

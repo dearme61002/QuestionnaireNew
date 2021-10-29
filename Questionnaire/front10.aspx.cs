@@ -254,5 +254,10 @@ namespace Questionnaire
 
 
         }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("front06.aspx");
+        }
     }
 }

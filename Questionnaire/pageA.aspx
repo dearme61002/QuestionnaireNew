@@ -49,8 +49,10 @@
         <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
         <%--問卷--%>
         <div style="text-align:center;margin-top:20px">
-            <asp:Button ID="Button1" runat="server" Text="Button" Font-Size="60px" OnClick="Button1_Click" />
+             <asp:Button ID="Button1" runat="server" Text="送出" Font-Size="30px" OnClick="Button1_Click" />
+             <asp:Button ID="Button2" runat="server" Text="回前台搜尋" Font-Size="30px" OnClick="Button2_Click" />
         </div>
+        
     </form>
 </body>
 </html>
