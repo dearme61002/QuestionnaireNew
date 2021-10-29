@@ -104,6 +104,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Backstage.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -159,6 +160,13 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Backstage.aspx.cs">
+      <DependentUpon>Backstage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Backstage.aspx.designer.cs">
+      <DependentUpon>Backstage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="front06.aspx.cs">
       <DependentUpon>front06.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
