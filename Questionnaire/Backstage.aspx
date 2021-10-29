@@ -13,8 +13,8 @@
             <asp:Label ID="Label1" runat="server" Text="後台" Style="font-size: 100px"></asp:Label>
             <div style="float:left;">
                 <div style="margin-top:250px">
-                    <asp:Label ID="Label2" runat="server" Text="Label">問卷管理</asp:Label>
-                    <asp:Label ID="Label3" runat="server" Text="Label">常見問題管理</asp:Label>
+                    <asp:HyperLink ID="HyperLink1" runat="server">問卷管理</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink2" runat="server">常見問題管理</asp:HyperLink>
                 </div>
                 
             </div>
