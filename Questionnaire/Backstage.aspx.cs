@@ -41,35 +41,73 @@ namespace Questionnaire
 
         protected void DeleteButton_Click(object sender, EventArgs e)
         {
-          
+
             List<object> parameters = new List<object>();
             List<Object> parameters_value = new List<object>();
             for (int i = 0; i < GridView1.Rows.Count; i++)
             {
                 CheckBox checkBox_Delete = (CheckBox)GridView1.Rows[i].FindControl("CheckBox1");
-                if(checkBox_Delete.Checked == true)
+                if (checkBox_Delete.Checked == true)
                 {
                     parameters.Add("@M_id");
                     parameters_value.Add(GridView1.Rows[i].Cells[1].Text);
                 }
 
             }
-            if(parameters.Count != 0)
+            if (parameters.Count != 0)
             {
                 for (int i = 0; i < parameters_value.Count; i++)
                 {
-                  string sql = "DELETE FROM Question_M WHERE M_id = @M_id";
-                SqlParameter[] sqlParameters = new SqlParameter[]
-                {
+                    //刪除問題
+                    string sql = "DELETE FROM Question_M WHERE M_id = @M_id";
+                    SqlParameter[] sqlParameters = new SqlParameter[]
+                    {
                     new SqlParameter("@M_id",parameters_value[i].ToString())
 
-                };
+                    };
                     sqlhelp.executeNonQuerysql(sql, sqlParameters, false);
+
+                    sql = "DELETE FROM Question_D1 WHERE M_id = @M_id";
+                    sqlhelp.executeNonQuerysql(sql, sqlParameters, false);
+
+                    sql = "DELETE FROM Question_D2 WHERE M_id = @M_id";
+                    sqlhelp.executeNonQuerysql(sql, sqlParameters, false);
+                    //刪除問題
+                    //刪除回答
+                    sql = "select AM_id from Answer_M WHERE M_id = @M_id";
+                    SqlDataReader sqlData = sqlhelp.executeReadesql(sql, sqlParameters, false);
+                    List<string> AM_IDList = new List<string>();
+                    if (sqlData.HasRows)
+                    {
+                        while (sqlData.Read())
+                        {
+                            AM_IDList.Add(sqlData["AM_id"].ToString());
+                        }
+                    };
+                    sqlData.Close();
+                    foreach (string item in AM_IDList)
+                    {
+                        sql = "DELETE FROM  Answer_D1 WHERE AM_id = @AM_id";
+                        SqlParameter[] getsqlpar = new SqlParameter[]
+                        {
+                        new SqlParameter("@AM_id",item)
+                        };
+                        sqlhelp.executeNonQuerysql(sql, getsqlpar, false);
+
+                    }
+                    //AM_ID D1 刪除好了
+                    sql = "DELETE FROM  Answer_M  WHERE M_id = @M_id";
+                    sqlhelp.executeNonQuerysql(sql, sqlParameters, false);
+
+                    //刪除回答
+
                 }
-               
-              
+
+
 
             }
+            //刪除成功
+
         }
     }
 }
