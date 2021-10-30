@@ -33,6 +33,7 @@
             <div style="float: left;">
                 <div style="margin-top: 250px">
                     <asp:HyperLink ID="HyperLink1" runat="server">問卷管理</asp:HyperLink>
+                    <br />
                     <asp:HyperLink ID="HyperLink2" runat="server">常見問題管理</asp:HyperLink>
                 </div>
 
@@ -57,7 +58,7 @@
                 <div style="text-align:left">
                     <span>
                         <asp:Button ID="DeleteButton" runat="server" Text="刪除" OnClick="DeleteButton_Click" OnClientClick="return del()"  /> 
-                        <asp:Button ID="ADDButton1" runat="server" Text="增加" />
+                        <asp:Button ID="ADDButton1" runat="server" Text="增加" OnClick="ADDButton1_Click" />
 
 
 
