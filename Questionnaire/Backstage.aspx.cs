@@ -122,7 +122,7 @@ namespace Questionnaire
                     sqlhelp.executeNonQuerysql(sql, sqlParameters4, false);
 
                     //刪除回答
-                    GridView1.DataBind();
+                   
                 }
 
 
@@ -130,7 +130,7 @@ namespace Questionnaire
             }
             //刪除成功
             //賦歸
-            
+            GridView1.DataBind();
             for (int i = 0; i < GridView1.Rows.Count; i++)
             {
                 DateTime lastTime = DateTime.Parse(((Label)GridView1.Rows[i].FindControl("Label1")).Text);
