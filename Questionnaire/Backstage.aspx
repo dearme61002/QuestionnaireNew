@@ -16,6 +16,14 @@
             $('#<% =txtStartDate.ClientID %>').datepicker({ dateFormat: 'yy-mm-dd' });
             $('#<% =txtEndDate.ClientID %>').datepicker({ dateFormat: 'yy-mm-dd' });
         });
+        function del() {
+            var msg = "您真的確定要刪除嗎？\n\n請確認！";
+            if (confirm(msg) == true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     </script>
 </head>
 <body>
@@ -48,7 +56,7 @@
                 <%--刪除 增加功能--%>
                 <div style="text-align:left">
                     <span>
-                        <asp:Button ID="DeleteButton" runat="server" Text="刪除" OnClick="DeleteButton_Click" />
+                        <asp:Button ID="DeleteButton" runat="server" Text="刪除" OnClick="DeleteButton_Click"  />
                     </span>
                 </div>
                 <%--刪除 增加功能--%>

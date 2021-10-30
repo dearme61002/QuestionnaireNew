@@ -68,14 +68,29 @@ namespace Questionnaire
                     sqlhelp.executeNonQuerysql(sql, sqlParameters, false);
 
                     sql = "DELETE FROM Question_D1 WHERE M_id = @M_id";
-                    sqlhelp.executeNonQuerysql(sql, sqlParameters, false);
+                    SqlParameter[] sqlParameters2 = new SqlParameter[]
+                    {
+                    new SqlParameter("@M_id",parameters_value[i].ToString())
+
+                    };
+                    sqlhelp.executeNonQuerysql(sql, sqlParameters2, false);
 
                     sql = "DELETE FROM Question_D2 WHERE M_id = @M_id";
-                    sqlhelp.executeNonQuerysql(sql, sqlParameters, false);
+                    SqlParameter[] sqlParameters3 = new SqlParameter[]
+                    {
+                    new SqlParameter("@M_id",parameters_value[i].ToString())
+
+                    };
+                    sqlhelp.executeNonQuerysql(sql, sqlParameters3, false);
                     //刪除問題
                     //刪除回答
                     sql = "select AM_id from Answer_M WHERE M_id = @M_id";
-                    SqlDataReader sqlData = sqlhelp.executeReadesql(sql, sqlParameters, false);
+                    SqlParameter[] sqlParameters5 = new SqlParameter[]
+                    {
+                    new SqlParameter("@M_id",parameters_value[i].ToString())
+
+                    };
+                    SqlDataReader sqlData = sqlhelp.executeReadesql(sql, sqlParameters5, false);
                     List<string> AM_IDList = new List<string>();
                     if (sqlData.HasRows)
                     {
@@ -97,7 +112,12 @@ namespace Questionnaire
                     }
                     //AM_ID D1 刪除好了
                     sql = "DELETE FROM  Answer_M  WHERE M_id = @M_id";
-                    sqlhelp.executeNonQuerysql(sql, sqlParameters, false);
+                    SqlParameter[] sqlParameters4 = new SqlParameter[]
+                    {
+                    new SqlParameter("@M_id",parameters_value[i].ToString())
+
+                    };
+                    sqlhelp.executeNonQuerysql(sql, sqlParameters4, false);
 
                     //刪除回答
 
@@ -107,7 +127,26 @@ namespace Questionnaire
 
             }
             //刪除成功
-
+            //賦歸
+            GridView1.DataBind();
+            GridView1.DataSourceID = "SqlDataSourceALL";
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                DateTime lastTime = DateTime.Parse(((Label)GridView1.Rows[i].FindControl("Label1")).Text);
+                if (DateTime.UtcNow > lastTime)
+                {
+                    HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                    dd.NavigateUrl = string.Empty;
+                    Label state = (Label)GridView1.Rows[i].FindControl("state");
+                    state.Text = "已關閉";
+                }
+                else
+                {
+                    Label state = (Label)GridView1.Rows[i].FindControl("state");
+                    state.Text = "已開放";
+                }
+            }
+            //賦歸
         }
     }
 }
