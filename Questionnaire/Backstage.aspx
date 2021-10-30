@@ -32,6 +32,40 @@
                 
             </div>
             <div style="clear:both"></div>
+            <%--表單製作--%>
+            <div>
+              <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="M_id" style="width:900px" >
+                        <Columns>
+                            <asp:BoundField DataField="M_id" HeaderText="#" InsertVisible="False" ReadOnly="True" SortExpression="M_id" />
+                            <asp:TemplateField HeaderText="標題">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("M_id", "pageA.aspx?M_id={0}") %>' Text='<%# Eval("M_title") %>'></asp:HyperLink>
+                                </ItemTemplate>
+                                <ItemStyle Font-Bold="True" Font-Size="Larger" />
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="狀態">
+                                <ItemTemplate>
+                                    <asp:Label ID="state" runat="server" Text=''></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="start_time" HeaderText="開始時間" SortExpression="start_time" DataFormatString="{0:yyyy-MM-dd}" />
+                            <asp:TemplateField HeaderText="結束時間" SortExpression="end_time">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("end_time") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("end_time","{0:yyyy-MM-dd}") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:HyperLinkField DataNavigateUrlFields="M_id" DataNavigateUrlFormatString="front10.aspx?M_id={0}" HeaderText="觀看統計" Text="前往" />
+                        </Columns>
+                    </asp:GridView>
+
+                <asp:SqlDataSource ID="SqlDataSourceALL" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [M_id], [M_title], [start_time], [end_time] FROM [Question_M]"></asp:SqlDataSource>
+                  
+            </div>
+            <%--表單製作--%>
+
         </div>
     </form>
 </body>
