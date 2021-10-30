@@ -56,7 +56,11 @@
                 <%--刪除 增加功能--%>
                 <div style="text-align:left">
                     <span>
-                        <asp:Button ID="DeleteButton" runat="server" Text="刪除" OnClick="DeleteButton_Click"  />
+                        <asp:Button ID="DeleteButton" runat="server" Text="刪除" OnClick="DeleteButton_Click" OnClientClick="return del()"  /> 
+
+
+
+
                     </span>
                 </div>
                 <%--刪除 增加功能--%>

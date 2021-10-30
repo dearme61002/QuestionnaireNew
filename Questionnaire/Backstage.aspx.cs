@@ -14,8 +14,10 @@ namespace Questionnaire
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if (!IsPostBack)
             {
+
+            
                 GridView1.DataSourceID = "SqlDataSourceALL";
                 for (int i = 0; i < GridView1.Rows.Count; i++)
                 {
@@ -35,8 +37,8 @@ namespace Questionnaire
                 }
 
 
-
             }
+
         }
 
         protected void DeleteButton_Click(object sender, EventArgs e)
@@ -120,7 +122,7 @@ namespace Questionnaire
                     sqlhelp.executeNonQuerysql(sql, sqlParameters4, false);
 
                     //刪除回答
-
+                    GridView1.DataBind();
                 }
 
 
@@ -128,8 +130,7 @@ namespace Questionnaire
             }
             //刪除成功
             //賦歸
-            GridView1.DataBind();
-            GridView1.DataSourceID = "SqlDataSourceALL";
+            
             for (int i = 0; i < GridView1.Rows.Count; i++)
             {
                 DateTime lastTime = DateTime.Parse(((Label)GridView1.Rows[i].FindControl("Label1")).Text);
@@ -146,7 +147,7 @@ namespace Questionnaire
                     state.Text = "已開放";
                 }
             }
-            //賦歸
+
         }
     }
 }
