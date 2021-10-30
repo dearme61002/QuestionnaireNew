@@ -1,5 +1,8 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -32,6 +35,39 @@ namespace Questionnaire
                 }
 
 
+
+            }
+        }
+
+        protected void DeleteButton_Click(object sender, EventArgs e)
+        {
+          
+            List<object> parameters = new List<object>();
+            List<Object> parameters_value = new List<object>();
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                CheckBox checkBox_Delete = (CheckBox)GridView1.Rows[i].FindControl("CheckBox1");
+                if(checkBox_Delete.Checked == true)
+                {
+                    parameters.Add("@M_id");
+                    parameters_value.Add(GridView1.Rows[i].Cells[1].Text);
+                }
+
+            }
+            if(parameters.Count != 0)
+            {
+                for (int i = 0; i < parameters_value.Count; i++)
+                {
+                  string sql = "DELETE FROM Question_M WHERE M_id = @M_id";
+                SqlParameter[] sqlParameters = new SqlParameter[]
+                {
+                    new SqlParameter("@M_id",parameters_value[i].ToString())
+
+                };
+                    sqlhelp.executeNonQuerysql(sql, sqlParameters, false);
+                }
+               
+              
 
             }
         }
