@@ -7,7 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <script src="Scripts/jquery-3.4.1.min.js"></script>
-  
+  <link href="Scripts/jqueryui/jquery-ui.css" rel="stylesheet" />
+    <script src="Scripts/jqueryui/jquery-ui.js"></script>
     <style>
         #tab-demo {
             width: 1200px;
@@ -60,6 +61,12 @@
         }
     </style>
     <script>
+ $(document).ready(function () {
+
+                $('#<% =txtStartDate.ClientID %>').datepicker({ dateFormat: 'yy-mm-dd' });
+                   $('#<% =txtEndDate.ClientID %>').datepicker({ dateFormat: 'yy-mm-dd' });
+               });
+
         $(function () {
             var $li = $('ul.tab-title li');
             $($li.eq(0).addClass('active').find('a').attr('href')).siblings('.tab-inner').hide();
@@ -73,7 +80,7 @@
                 document.getElementById('tab02top').click();
                 event.preventDefault();
             });
-
+           
 
         });
     </script>
@@ -109,10 +116,10 @@
                             <span>描述內容:</span><asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
                         </div>
                           <div>
-                            <span>開始時間:</span><asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                            <span>開始時間:</span><asp:TextBox ID="txtStartDate" runat="server" Height="20px" Style="font-size: 30px; line-height: 30px" onkeydown="return false;" autocomplete="off"></asp:TextBox>
                         </div>
                         <div>
-                            <span>結束使間:</span><asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+                            <span>結束使間:</span><asp:TextBox ID="txtEndDate" runat="server" Height="20px" Style="font-size: 30px; line-height: 30px" onkeydown="return false;" autocomplete="off"></asp:TextBox>
                         </div>
                         <div>
                             <asp:CheckBox ID="CheckBox1" runat="server" /><span>已啟動</span>
