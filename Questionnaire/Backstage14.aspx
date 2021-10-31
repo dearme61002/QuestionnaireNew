@@ -7,11 +7,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <script src="Scripts/jquery-3.4.1.min.js"></script>
-
+  
     <style>
         #tab-demo {
             width: 1200px;
-            height: 600px;
+           /* height:1000px;*/
         }
 
             #tab-demo > ul {
@@ -56,7 +56,7 @@
 
         .tab-inner {
             padding: 15px;
-            height: 50px;
+            /*height: 500px;*/  /*裡面的高度*/
         }
     </style>
     <script>
@@ -68,11 +68,18 @@
                 $($(this).find('a').attr('href')).show().siblings('.tab-inner').hide();
                 $(this).addClass('active').siblings('.active').removeClass('active');
             });
+
+            document.getElementById('tab01Button').addEventListener("click", function () {
+                document.getElementById('tab02top').click();
+                event.preventDefault();
+            });
+
+
         });
     </script>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" >
         <div style="margin-left: auto; margin-right: auto; width: 1400px">
 
             <asp:Label ID="Label1" runat="server" Text="後台管理增加問卷" Style="font-size: 100px"></asp:Label>
@@ -86,16 +93,35 @@
 
             <%--內容--%>
 
-            <div id="tab-demo" style="text-align:center;float:right;margin-top: 100px">
+            <div id="tab-demo" style="float:right;margin-top: 100px">
                 <ul class="tab-title">
-                    <li><a href="#tab01">tab01</a></li>
-                    <li><a href="#tab02">tab02</a></li>
+                    <li><a href="#tab01">問卷</a></li>
+                    <li><a href="#tab02" id="tab02top">tab02</a></li>
                     <li><a href="#tab03">tab03</a></li>
                     <li><a href="#tab04">tab04</a></li>
                 </ul>
                 <div id="tab01" class="tab-inner">
-                    <p>tab01的內容</p>
-                    <asp:Button ID="Button1" runat="server" Text="Bufdfdfdftton" />
+                    <div>
+                        <div>
+                            <span>問卷名稱:</span><asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                        </div>
+                        <div>
+                            <span>描述內容:</span><asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                        </div>
+                          <div>
+                            <span>開始時間:</span><asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                        </div>
+                        <div>
+                            <span>結束使間:</span><asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+                        </div>
+                        <div>
+                            <asp:CheckBox ID="CheckBox1" runat="server" /><span>已啟動</span>
+                        </div>
+                        <div>
+                            <asp:Button ID="Button1" runat="server" Text="取消" />
+                            <button id="tab01Button">下一頁</button>
+                        </div>
+                    </div>
                 </div>
                 <div id="tab02" class="tab-inner">
                     <p>tab02的內容</p>
