@@ -81,6 +81,10 @@
                 event.preventDefault();
             });
            
+            document.getElementById('<% =AddButton2.ClientID %>').addEventListener("click", function () {
+        
+                event.preventDefault();
+            });
 
         });
     </script>
@@ -103,9 +107,8 @@
             <div id="tab-demo" style="float:right;margin-top: 100px">
                 <ul class="tab-title">
                     <li><a href="#tab01">問卷</a></li>
-                    <li><a href="#tab02" id="tab02top">tab02</a></li>
-                    <li><a href="#tab03">tab03</a></li>
-                    <li><a href="#tab04">tab04</a></li>
+                    <li><a href="#tab02" id="tab02top">問題</a></li>
+                   
                 </ul>
                 <div id="tab01" class="tab-inner">
                     <div>
@@ -131,17 +134,37 @@
                     </div>
                 </div>
                 <div id="tab02" class="tab-inner">
-                    <p>tab02的內容</p>
-                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                   <div>
+                       <span>種類</span>
+                       <asp:DropDownList ID="DropDownList1" runat="server">
+                           <asp:ListItem Value="0">自訂問題</asp:ListItem>
+                       </asp:DropDownList>
+                   </div>
+                    <div style="margin-top:30px">
+                        <span>問題</span><asp:DropDownList ID="DropDownList2" runat="server">
+                            <asp:ListItem Value="RB">單選題</asp:ListItem>
+                            <asp:ListItem Value="CB">複選題</asp:ListItem>
+                            <asp:ListItem Value="TB">文字方塊</asp:ListItem>
+                        </asp:DropDownList><span><asp:CheckBox ID="CheckBox2" runat="server" /><span>必須</span></span>
+                        <div>
+                            <span>回答</span><asp:TextBox ID="TextBox1" runat="server"></asp:TextBox><span>(多個答案以分號;分隔)</span><asp:Button ID="AddButton2" runat="server" Text="加入" />
+                        </div>
+                        <div>
+                            <asp:Button ID="Button2" runat="server" Text="刪除" />
+                        </div>
+                        <%--表單--%>
+                        <div>
+                            <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+                        </div>
+                        <%--表單--%>
+                    </div>
+                    <div><asp:Button ID="Button3" runat="server" Text="取消" />
+                        <asp:Button ID="Button4" runat="server" Text="送出" /></div>
                 </div>
-                <div id="tab03" class="tab-inner">
-                    <p>tab03的內容</p>
-                </div>
-                <div id="tab04" class="tab-inner">
-                    <p>tab0455的內容</p>
-                </div>
+                
             </div>
             <%--內容--%>
+           
             <div style="clear:both"></div>
         </div>
     </form>
