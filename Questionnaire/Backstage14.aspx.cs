@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -32,6 +33,23 @@ namespace Questionnaire
             string answer = answer_TextBox.Text;
             // 讀資料
 
+            //GridView1
+            DataTable dt = new DataTable();
+
+            // Add three columns in datatable and their names and data types
+            dt.Columns.Add(new DataColumn("id", typeof(int)));
+            dt.Columns.Add(new DataColumn("name", typeof(string)));
+            dt.Columns.Add(new DataColumn("country", typeof(string)));
+
+            // Add five records in datatable
+            for (int i = 0; i < 5; i++)
+            {
+                dt.Rows.Add(i, "Name" + i, "Country" + i);
+            }
+
+            GridView1.DataSource = dt; // set your datatable to your gridview as datasource
+            GridView1.DataBind(); // bind the gridview with datasource
+           
         }
     }
 }

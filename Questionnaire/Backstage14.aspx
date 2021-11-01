@@ -157,6 +157,7 @@
                         <%--表單--%>
                         <div>
                             <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+                            <asp:ListView ID="ListView1" runat="server"></asp:ListView>
                         </div>
                         <%--表單--%>
                     </div>
