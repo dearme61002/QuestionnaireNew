@@ -113,10 +113,10 @@
                 <div id="tab01" class="tab-inner">
                     <div>
                         <div>
-                            <span>問卷名稱:</span><asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                            <span>問卷名稱:</span><asp:TextBox ID="TextBox2Title" runat="server"></asp:TextBox>
                         </div>
                         <div>
-                            <span>描述內容:</span><asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                            <span>描述內容:</span><asp:TextBox ID="TextBoxM_summary" runat="server"></asp:TextBox>
                         </div>
                           <div>
                             <span>開始時間:</span><asp:TextBox ID="txtStartDate" runat="server" Height="20px" Style="font-size: 30px; line-height: 30px" onkeydown="return false;" autocomplete="off"></asp:TextBox>
@@ -141,13 +141,15 @@
                        </asp:DropDownList>
                    </div>
                     <div style="margin-top:30px">
-                        <span>問題</span><asp:DropDownList ID="DropDownList2" runat="server">
+                        <span>問題</span>
+                        <asp:TextBox ID="D1_title_TextBox" runat="server"></asp:TextBox>
+                        <asp:DropDownList ID="D1_type_DropDownList" runat="server">
                             <asp:ListItem Value="RB">單選題</asp:ListItem>
                             <asp:ListItem Value="CB">複選題</asp:ListItem>
                             <asp:ListItem Value="TB">文字方塊</asp:ListItem>
-                        </asp:DropDownList><span><asp:CheckBox ID="CheckBox2" runat="server" /><span>必須</span></span>
+                        </asp:DropDownList><span><asp:CheckBox ID="D1_mustKeyin_CheckBox" runat="server" /><span>必須</span></span>
                         <div>
-                            <span>回答</span><asp:TextBox ID="TextBox1" runat="server"></asp:TextBox><span>(多個答案以分號;分隔)</span><asp:Button ID="AddButton2" runat="server" Text="加入" />
+                            <span>回答</span><asp:TextBox ID="answer_TextBox" runat="server"></asp:TextBox><span>(多個答案以分號;分隔)</span><asp:Button ID="AddButton2" runat="server" Text="加入" />
                         </div>
                         <div>
                             <asp:Button ID="Button2" runat="server" Text="刪除" />
@@ -159,7 +161,7 @@
                         <%--表單--%>
                     </div>
                     <div><asp:Button ID="Button3" runat="server" Text="取消" />
-                        <asp:Button ID="Button4" runat="server" Text="送出" /></div>
+                        <asp:Button ID="Button4" runat="server" Text="送出" OnClick="Button4_Click" /></div>
                 </div>
                 
             </div>
