@@ -68,8 +68,9 @@
                });
 
         $(function () {
+            
             var $li = $('ul.tab-title li');
-            $($li.eq(0).addClass('active').find('a').attr('href')).siblings('.tab-inner').hide();
+           /* $($li.eq(0).addClass('active').find('a').attr('href')).siblings('.tab-inner').hide();*/
 
             $li.click(function () {
                 $($(this).find('a').attr('href')).show().siblings('.tab-inner').hide();
@@ -80,17 +81,35 @@
                 document.getElementById('tab02top').click();
                 event.preventDefault();
             });
-           
-            document.getElementById('<% =AddButton2.ClientID %>').addEventListener("click", function () {
-        
-                event.preventDefault();
+            /*案頭*/
+            document.getElementById('litab02top').addEventListener("click", () => {
+                document.getElementById('litab01top').style.borderBottom = '1px solid #BCBCBC';
+                document.getElementById('litab01top').style.backgroundColor = '#BCBCBC';
+                document.getElementById('litab02top').style.borderBottom = 'none';
+                document.getElementById('litab02top').style.backgroundColor = 'white';
             });
+
+            document.getElementById('litab01top').addEventListener("click", () => {
+                document.getElementById('litab02top').style.borderBottom = '1px solid #BCBCBC';
+                document.getElementById('litab02top').style.backgroundColor = '#BCBCBC';
+                document.getElementById('litab01top').style.borderBottom = 'none';
+                document.getElementById('litab01top').style.backgroundColor = 'white';
+
+            });
+            /*案頭*/
+            document.getElementById('<% =AddButton2.ClientID %>').addEventListener("click", function () {
+                //document.getElementById('tab02top').click();
+                //event.preventDefault();
+                
+            });
+
+          
 
         });
     </script>
 </head>
 <body>
-    <form id="form1" runat="server" >
+    <form id="form1" runat="server"  >
         <div style="margin-left: auto; margin-right: auto; width: 1400px">
 
             <asp:Label ID="Label1" runat="server" Text="後台管理增加問卷" Style="font-size: 100px"></asp:Label>
@@ -106,8 +125,8 @@
 
             <div id="tab-demo" style="float:right;margin-top: 100px">
                 <ul class="tab-title">
-                    <li><a href="#tab01">問卷</a></li>
-                    <li><a href="#tab02" id="tab02top">問題</a></li>
+                    <li style="background-color:white;border-bottom:none" id="litab01top"><a href="#tab01" id="tab01top" >問卷</a></li>
+                    <li id="litab02top"><a href="#tab02" id="tab02top">問題</a></li>
                    
                 </ul>
                 <div id="tab01" class="tab-inner">
@@ -133,7 +152,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="tab02" class="tab-inner">
+                <div id="tab02" class="tab-inner" style="display:none">
                    <div>
                        <span>種類</span>
                        <asp:DropDownList ID="DropDownList1" runat="server">
@@ -149,7 +168,7 @@
                             <asp:ListItem Value="TB">文字方塊</asp:ListItem>
                         </asp:DropDownList><span><asp:CheckBox ID="D1_mustKeyin_CheckBox" runat="server" /><span>必須</span></span>
                         <div>
-                            <span>回答</span><asp:TextBox ID="answer_TextBox" runat="server"></asp:TextBox><span>(多個答案以分號;分隔)</span><asp:Button ID="AddButton2" runat="server" Text="加入" />
+                            <span>回答</span><asp:TextBox ID="answer_TextBox" runat="server"></asp:TextBox><span>(多個答案以分號;分隔)</span><asp:Button ID="AddButton2"  runat="server" Text="加入" OnClick="AddButton2_Click" />
                         </div>
                         <div>
                             <asp:Button ID="Button2" runat="server" Text="刪除" />
