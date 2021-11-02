@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,6 +13,12 @@ namespace Questionnaire
     public partial class Backstage14 : System.Web.UI.Page
     {
         DataTable dt = new DataTable();
+        // Add three columns in datatable and their names and data types
+
+
+        //AddButton2_Click
+        List<string> D1_title =new List<string>();
+        //
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -34,7 +41,20 @@ namespace Questionnaire
         protected void AddButton2_Click(object sender, EventArgs e)
         {
             //讀資料2
-            string D1_title = D1_title_TextBox.Text;
+            if (Session["D1_title_TextBox"] == null)
+            {
+            D1_title.Add(D1_title_TextBox.Text);
+            Session["D1_title_TextBox"] =  D1_title;
+            }
+            else
+            {
+                D1_title =(List<string>)Session["D1_title_TextBox"];
+                D1_title.Add(D1_title_TextBox.Text);
+                Session["D1_title_TextBox"] = D1_title;
+            }
+               
+
+            
             string D1_type = D1_type_DropDownList.SelectedValue;
             Boolean D1_mustKeyin = D1_mustKeyin_CheckBox.Checked;
             //讀資料
@@ -46,15 +66,22 @@ namespace Questionnaire
             //DataTable dt = new DataTable();
 
             // Add three columns in datatable and their names and data types
-            dt.Columns.Add(new DataColumn("id", typeof(int)));
-            dt.Columns.Add(new DataColumn("name", typeof(string)));
-            dt.Columns.Add(new DataColumn("country", typeof(string)));
+            dt.Columns.Add(new DataColumn("#", typeof(int)));
+            dt.Columns.Add(new DataColumn("問題", typeof(string)));
+            dt.Columns.Add(new DataColumn("種類", typeof(string)));
+            dt.Columns.Add(new DataColumn("必須", typeof(Boolean)));
+
 
             // Add five records in datatable
-            for (int i = 0; i < 5; i++)
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    dt.Rows.Add(i, "Name" + i, "Country" + i);
+            //}
+            for (int i = 0; i < D1_title.Count; i++)
             {
-                dt.Rows.Add(i, "Name" + i, "Country" + i);
+                dt.Rows.Add(i, D1_title[i], "dsds", true);
             }
+
 
             GridView1.DataSource = dt; // set your datatable to your gridview as datasource
             GridView1.DataBind(); // bind the gridview with datasource

@@ -70,7 +70,7 @@
         $(function () {
             
             var $li = $('ul.tab-title li');
-           /* $($li.eq(0).addClass('active').find('a').attr('href')).siblings('.tab-inner').hide();*/
+           /* $($li.eq(0).addClass('active').find('a').attr('href')).siblings('.tab-inner').hide();*/ //初始化 但會影響到動態表單所以取消
 
             $li.click(function () {
                 $($(this).find('a').attr('href')).show().siblings('.tab-inner').hide();
@@ -81,7 +81,7 @@
                 document.getElementById('tab02top').click();
                 event.preventDefault();
             });
-            /*案頭*/
+            /*head頭*/
             document.getElementById('litab02top').addEventListener("click", () => {
                 document.getElementById('litab01top').style.borderBottom = '1px solid #BCBCBC';
                 document.getElementById('litab01top').style.backgroundColor = '#BCBCBC';
@@ -96,7 +96,7 @@
                 document.getElementById('litab01top').style.backgroundColor = 'white';
 
             });
-            /*案頭*/
+            /*head頭*/
             document.getElementById('<% =AddButton2.ClientID %>').addEventListener("click", function () {
                 //document.getElementById('tab02top').click();
                 //event.preventDefault();
