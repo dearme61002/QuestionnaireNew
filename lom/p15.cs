@@ -5,6 +5,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 
 namespace lom
 {
@@ -13,6 +14,8 @@ namespace lom
     {
         public string 問題 { get; set; }
         public string 種類 { get; set; }
+
+         public HyperLink hyperLink { get; set; }
 
          List<p15> p15s = new List<p15>();
 

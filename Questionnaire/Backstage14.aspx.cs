@@ -63,7 +63,7 @@ namespace Questionnaire
             myp15s2.setp15_data(D1_title_TextBox.Text, value_type);
             Session["mydata"]= myp15s2;
 
-           
+
             //寫入資料
             ////GridView1這邊是用舊的技術 上面是改良
             //DataTable dt = new DataTable();

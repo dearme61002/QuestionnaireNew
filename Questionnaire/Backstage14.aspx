@@ -175,7 +175,18 @@
                         </div>
                         <%--表單--%>
                         <div>
-                            <asp:GridView ID="GridView1" runat="server" ItemType="lom.p15" OnCallingDataMethods="GridView1_CallingDataMethods" SelectMethod="getp15_data"></asp:GridView>
+                            <asp:GridView ID="GridView1" runat="server" ItemType="lom.p15" OnCallingDataMethods="GridView1_CallingDataMethods" SelectMethod="getp15_data">
+                           
+                               <%-- cds--%>
+
+      
+
+
+  
+      
+
+                              <%--  gfdgdf--%>
+                            </asp:GridView>
                             <asp:ListView ID="ListView1" runat="server"></asp:ListView>
                         </div>
                         <%--表單--%>
