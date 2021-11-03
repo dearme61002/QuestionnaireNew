@@ -45,8 +45,25 @@ namespace Questionnaire
         {
             //寫入資料
             p15 myp15s2 = (p15)Session["mydata"];
-            myp15s2.setp15_data("ff", "CT");
+            string value_type;
+            switch (D1_type_DropDownList.SelectedValue)
+            {
+                case "RB"://單選選(RadioButton)
+                    value_type = "單選題";
+                    break;
+                case "CB"://複選(checkboxlist)
+                    value_type = "複選題";
+                    break;
+
+                default:
+                    value_type = "文字框";
+                    break;
+            }
+            
+            myp15s2.setp15_data(D1_title_TextBox.Text, value_type);
             Session["mydata"]= myp15s2;
+
+           
             //寫入資料
             ////GridView1這邊是用舊的技術 上面是改良
             //DataTable dt = new DataTable();

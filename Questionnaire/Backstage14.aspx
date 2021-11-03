@@ -188,7 +188,7 @@
             <%--內容--%>
            
             <div style="clear:both">
-                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server"></asp:ObjectDataSource>
+                
             </div>
         </div>
     </form>

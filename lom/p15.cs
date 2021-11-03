@@ -11,8 +11,8 @@ namespace lom
   
     public class p15
     {
-        public string name { get; set; }
-        public string type { get; set; }
+        public string 問題 { get; set; }
+        public string 種類 { get; set; }
 
          List<p15> p15s = new List<p15>();
 
@@ -27,10 +27,10 @@ namespace lom
          }
         public void setp15_data(string myname, string mytype)
         {
-          
-            name = myname;
-            type = mytype;
-            p15s.Add(new p15 { name = name, type = type });
+
+            問題 = myname;
+            種類 = mytype;
+            p15s.Add(new p15 { 問題 = myname, 種類 = mytype });
         }
     }
     //getp15_data
