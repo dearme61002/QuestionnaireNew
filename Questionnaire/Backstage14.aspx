@@ -171,13 +171,24 @@
                             <span>回答</span><asp:TextBox ID="answer_TextBox" runat="server"></asp:TextBox><span>(多個答案以分號;分隔)</span><asp:Button ID="AddButton2" runat="server" Text="加入" OnClick="AddButton2_Click" />
                         </div>
                         <div>
-                            <asp:Button ID="Button2" runat="server" Text="刪除" />
+                            <asp:Button ID="Button2" runat="server" Text="刪除" OnClick="Button2_Click" />
                         </div>
                         <%--表單--%>
                         <div>
                             <asp:GridView ID="GridView1" runat="server" ItemType="lom.p15" OnCallingDataMethods="GridView1_CallingDataMethods" SelectMethod="getp15_data" OnDataBinding="GridView1_DataBinding" OnDataBound="GridView1_DataBound" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False">
 
                                 <%-- cds--%>
+
+                                  <Columns>
+                                    <asp:TemplateField HeaderText="">
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="GridView_CheckBox2" runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+
+
+
                                 <Columns>
                                     <asp:TemplateField HeaderText="#">
                                         <ItemTemplate>

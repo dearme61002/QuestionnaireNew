@@ -35,6 +35,13 @@ namespace lom
             種類 = mytype;
             p15s.Add(new p15 { 問題 = myname, 種類 = mytype });
         }
+
+        public void deletep15_data(int i)
+        {
+            p15s.RemoveAt(i);
+          
+
+        }
     }
     //getp15_data
 }

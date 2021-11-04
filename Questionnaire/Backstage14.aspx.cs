@@ -168,5 +168,25 @@ namespace Questionnaire
         {
             
         }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+
+            //刪除int i=list.Count-1;i>=0;i--
+            p15 myp15s2 = (p15)Session["mydata"];//先取出值
+            for (int i = GridView1.Rows.Count-1; i >=0; i--)//要使用到續法刪除
+            {
+              CheckBox checkBox_Delete = (CheckBox)GridView1.Rows[i].FindControl("GridView_CheckBox2");
+            if (checkBox_Delete.Checked == true)
+            {
+                    //刪除資料
+                   
+                    myp15s2.deletep15_data(i);
+                }
+            }
+            Session["mydata"] = myp15s2;
+            //刪除
+            GridView1.DataBind();
+        }
     }
 }
