@@ -43,6 +43,14 @@ namespace Questionnaire
 
         protected void AddButton2_Click(object sender, EventArgs e)
         {
+            //ghhg
+
+           
+
+
+
+            //
+
             //寫入資料
             p15 myp15s2 = (p15)Session["mydata"];
             string value_type;
@@ -62,7 +70,6 @@ namespace Questionnaire
             
             myp15s2.setp15_data(D1_title_TextBox.Text, value_type);
             Session["mydata"]= myp15s2;
-
 
             //寫入資料
             ////GridView1這邊是用舊的技術 上面是改良
@@ -108,24 +115,42 @@ namespace Questionnaire
             }
             //調轉到tab02
 
-            DataBind();
+            GridView1.DataBind();
 
         }
 
         protected void GridView1_CallingDataMethods(object sender, CallingDataMethodsEventArgs e)
         {
-            p15 ss= (p15)Session["mydata"];
+            p15 ss = (p15)Session["mydata"];
             if (ss != null)
             {
-                
-               e.DataMethodsObject = ss;
+
+                e.DataMethodsObject = ss;
             }
             else
             {
-             p15 p15 = new p15();
-            e.DataMethodsObject = p15;
+                p15 p15 = new p15();
+                e.DataMethodsObject = p15;
                 Session["mydata"] = p15;
             }
+            //#號製作
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                Label inner_one_Label = (Label)GridView1.Rows[i].FindControl("Grid_inner_one");
+                inner_one_Label.Text = i.ToString();
+            }
+            //#號製
+
+
+            //編輯功能
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                HyperLink ChangeHyperLink3 = (HyperLink)GridView1.Rows[i].FindControl("ChangeHyperLink3");
+                ChangeHyperLink3.NavigateUrl = "http://www.microsoft.com?id=" + i;//應後要改]
+            }
+
+            //編輯功能
+
             //DataBind();
         }
 
@@ -141,11 +166,7 @@ namespace Questionnaire
 
         protected void GridView1_DataBound(object sender, EventArgs e)
         {
-            if (GridView1.Columns.Count < 3)
-            {
-                return;
-            }
-GridView1.Columns[2].HeaderText = "收據編號";
+            
         }
     }
 }

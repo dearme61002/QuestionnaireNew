@@ -7,12 +7,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <script src="Scripts/jquery-3.4.1.min.js"></script>
-  <link href="Scripts/jqueryui/jquery-ui.css" rel="stylesheet" />
+    <link href="Scripts/jqueryui/jquery-ui.css" rel="stylesheet" />
     <script src="Scripts/jqueryui/jquery-ui.js"></script>
     <style>
         #tab-demo {
             width: 1200px;
-           /* height:1000px;*/
+            /* height:1000px;*/
         }
 
             #tab-demo > ul {
@@ -57,20 +57,20 @@
 
         .tab-inner {
             padding: 15px;
-            /*height: 500px;*/  /*裡面的高度*/
+            /*height: 500px;*/ /*裡面的高度*/
         }
     </style>
     <script>
- $(document).ready(function () {
+        $(document).ready(function () {
 
-                $('#<% =txtStartDate.ClientID %>').datepicker({ dateFormat: 'yy-mm-dd' });
-                   $('#<% =txtEndDate.ClientID %>').datepicker({ dateFormat: 'yy-mm-dd' });
-               });
+            $('#<% =txtStartDate.ClientID %>').datepicker({ dateFormat: 'yy-mm-dd' });
+     $('#<% =txtEndDate.ClientID %>').datepicker({ dateFormat: 'yy-mm-dd' });
+ });
 
         $(function () {
-            
+
             var $li = $('ul.tab-title li');
-           /* $($li.eq(0).addClass('active').find('a').attr('href')).siblings('.tab-inner').hide();*/ //初始化 但會影響到動態表單所以取消
+            /* $($li.eq(0).addClass('active').find('a').attr('href')).siblings('.tab-inner').hide();*/ //初始化 但會影響到動態表單所以取消
 
             $li.click(function () {
                 $($(this).find('a').attr('href')).show().siblings('.tab-inner').hide();
@@ -100,16 +100,16 @@
             document.getElementById('<% =AddButton2.ClientID %>').addEventListener("click", function () {
                 //document.getElementById('tab02top').click();
                 //event.preventDefault();
-                
+
             });
 
-          
+
 
         });
     </script>
 </head>
 <body>
-    <form id="form1" runat="server"  >
+    <form id="form1" runat="server">
         <div style="margin-left: auto; margin-right: auto; width: 1400px">
 
             <asp:Label ID="Label1" runat="server" Text="後台管理增加問卷" Style="font-size: 100px"></asp:Label>
@@ -123,11 +123,11 @@
 
             <%--內容--%>
 
-            <div id="tab-demo" style="float:right;margin-top: 100px">
+            <div id="tab-demo" style="float: right; margin-top: 100px">
                 <ul class="tab-title">
-                    <li style="background-color:white;border-bottom:none" id="litab01top"><a href="#tab01" id="tab01top" >問卷</a></li>
+                    <li style="background-color: white; border-bottom: none" id="litab01top"><a href="#tab01" id="tab01top">問卷</a></li>
                     <li id="litab02top"><a href="#tab02" id="tab02top">問題</a></li>
-                   
+
                 </ul>
                 <div id="tab01" class="tab-inner">
                     <div>
@@ -137,7 +137,7 @@
                         <div>
                             <span>描述內容:</span><asp:TextBox ID="TextBoxM_summary" runat="server"></asp:TextBox>
                         </div>
-                          <div>
+                        <div>
                             <span>開始時間:</span><asp:TextBox ID="txtStartDate" runat="server" Height="20px" Style="font-size: 30px; line-height: 30px" onkeydown="return false;" autocomplete="off"></asp:TextBox>
                         </div>
                         <div>
@@ -153,13 +153,13 @@
                     </div>
                 </div>
                 <div id="tab02" class="tab-inner" <%--style="display:none"--%>>
-                   <div>
-                       <span>種類</span>
-                       <asp:DropDownList ID="DropDownList1" runat="server">
-                           <asp:ListItem Value="0">自訂問題</asp:ListItem>
-                       </asp:DropDownList>
-                   </div>
-                    <div style="margin-top:30px">
+                    <div>
+                        <span>種類</span>
+                        <asp:DropDownList ID="DropDownList1" runat="server">
+                            <asp:ListItem Value="0">自訂問題</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div style="margin-top: 30px">
                         <span>問題</span>
                         <asp:TextBox ID="D1_title_TextBox" runat="server"></asp:TextBox>
                         <asp:DropDownList ID="D1_type_DropDownList" runat="server">
@@ -168,53 +168,65 @@
                             <asp:ListItem Value="TB">文字方塊</asp:ListItem>
                         </asp:DropDownList><span><asp:CheckBox ID="D1_mustKeyin_CheckBox" runat="server" /><span>必須</span></span>
                         <div>
-                            <span>回答</span><asp:TextBox ID="answer_TextBox" runat="server"></asp:TextBox><span>(多個答案以分號;分隔)</span><asp:Button ID="AddButton2"  runat="server" Text="加入" OnClick="AddButton2_Click" />
+                            <span>回答</span><asp:TextBox ID="answer_TextBox" runat="server"></asp:TextBox><span>(多個答案以分號;分隔)</span><asp:Button ID="AddButton2" runat="server" Text="加入" OnClick="AddButton2_Click" />
                         </div>
                         <div>
                             <asp:Button ID="Button2" runat="server" Text="刪除" />
                         </div>
                         <%--表單--%>
                         <div>
-                            <asp:GridView ID="GridView1" runat="server" ItemType="lom.p15" OnCallingDataMethods="GridView1_CallingDataMethods" SelectMethod="getp15_data" OnDataBinding="GridView1_DataBinding" OnDataBound="GridView1_DataBound" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
-                           
-                               <%-- cds--%>
-                               <Columns>
-                                   <asp:TemplateField HeaderText="狀態">
-                                <ItemTemplate>
-                                    <asp:Label ID="state" runat="server" Text=''></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                               </Columns>
-      
+                            <asp:GridView ID="GridView1" runat="server" ItemType="lom.p15" OnCallingDataMethods="GridView1_CallingDataMethods" SelectMethod="getp15_data" OnDataBinding="GridView1_DataBinding" OnDataBound="GridView1_DataBound" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False">
+
+                                <%-- cds--%>
                                 <Columns>
-                                   <asp:TemplateField HeaderText="狀態2">
-                                <ItemTemplate>
-                                    <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="http://www.microsoft.com" >HyperLink</asp:HyperLink>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-         
+                                    <asp:TemplateField HeaderText="#">
+                                        <ItemTemplate>
+                                            <asp:Label ID="Grid_inner_one" runat="server" Text=''></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
 
+                                
 
-                               </Columns>
+                                <Columns>
+                                    <asp:TemplateField HeaderText="種類">
+                                        <ItemTemplate>
+                                            <asp:Label ID="typeLabel" runat="server" Text="<%#:Item.種類 %>"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                               
+                                <Columns>
+                                    <asp:TemplateField HeaderText="問題">
+                                        <ItemTemplate>
+                                            <asp:Label ID="questionLabel" runat="server" Text="<%#:Item.問題 %>"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
 
-  
-      
-
-                              <%--  gfdgdf--%>
+                                <Columns>
+                                    <asp:TemplateField >
+                                        <ItemTemplate>
+                                            <asp:HyperLink ID="ChangeHyperLink3" runat="server"  Text="編輯"></asp:HyperLink>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <%--  gfdgdf--%>
                             </asp:GridView>
                             <asp:ListView ID="ListView1" runat="server"></asp:ListView>
                         </div>
                         <%--表單--%>
                     </div>
-                    <div><asp:Button ID="Button3" runat="server" Text="取消" />
-                        <asp:Button ID="Button4" runat="server" Text="送出" OnClick="Button4_Click" /></div>
+                    <div>
+                        <asp:Button ID="Button3" runat="server" Text="取消" />
+                        <asp:Button ID="Button4" runat="server" Text="送出" OnClick="Button4_Click" />
+                    </div>
                 </div>
-                
+
             </div>
             <%--內容--%>
-           
-            <div style="clear:both">
-                
+
+            <div style="clear: both">
             </div>
         </div>
     </form>

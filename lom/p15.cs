@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 namespace lom
 {
   
-    public class p15
+    public  class p15
     {
         public string 問題 { get; set; }
         public string 種類 { get; set; }
@@ -19,7 +19,7 @@ namespace lom
 
          List<p15> p15s = new List<p15>();
 
-        public List<p15> getp15_data()
+        public  List<p15> getp15_data()
         {
             
            
