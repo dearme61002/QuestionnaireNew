@@ -152,7 +152,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="tab02" class="tab-inner" style="display:none">
+                <div id="tab02" class="tab-inner" <%--style="display:none"--%>>
                    <div>
                        <span>種類</span>
                        <asp:DropDownList ID="DropDownList1" runat="server">
@@ -175,7 +175,7 @@
                         </div>
                         <%--表單--%>
                         <div>
-                            <asp:GridView ID="GridView1" runat="server" ItemType="lom.p15" OnCallingDataMethods="GridView1_CallingDataMethods" SelectMethod="getp15_data">
+                            <asp:GridView ID="GridView1" runat="server" ItemType="lom.p15" OnCallingDataMethods="GridView1_CallingDataMethods" SelectMethod="getp15_data" OnDataBinding="GridView1_DataBinding" OnDataBound="GridView1_DataBound" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
                            
                                <%-- cds--%>
                                <Columns>
@@ -184,9 +184,6 @@
                                     <asp:Label ID="state" runat="server" Text=''></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-         
-
-
                                </Columns>
       
                                 <Columns>

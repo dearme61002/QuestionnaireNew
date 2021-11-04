@@ -128,5 +128,24 @@ namespace Questionnaire
             }
             //DataBind();
         }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void GridView1_DataBinding(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void GridView1_DataBound(object sender, EventArgs e)
+        {
+            if (GridView1.Columns.Count < 3)
+            {
+                return;
+            }
+GridView1.Columns[2].HeaderText = "收據編號";
+        }
     }
 }
