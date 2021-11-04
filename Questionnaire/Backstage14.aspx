@@ -178,9 +178,27 @@
                             <asp:GridView ID="GridView1" runat="server" ItemType="lom.p15" OnCallingDataMethods="GridView1_CallingDataMethods" SelectMethod="getp15_data">
                            
                                <%-- cds--%>
+                               <Columns>
+                                   <asp:TemplateField HeaderText="狀態">
+                                <ItemTemplate>
+                                    <asp:Label ID="state" runat="server" Text=''></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+         
 
+
+                               </Columns>
       
+                                <Columns>
+                                   <asp:TemplateField HeaderText="狀態2">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="http://www.microsoft.com" >HyperLink</asp:HyperLink>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+         
 
+
+                               </Columns>
 
   
       
