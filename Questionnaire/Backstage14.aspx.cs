@@ -16,7 +16,7 @@ namespace Questionnaire
     {
         //DataTable dt = new DataTable();
         // Add three columns in datatable and their names and data types
-      
+        
 
         //AddButton2_Click
 
@@ -24,7 +24,44 @@ namespace Questionnaire
         //
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {  
+                if (Request.QueryString["Change_id"] != null)
+            {//編寫功能
+                string my_chang_value = Request.QueryString["Change_id"];
+                //取得資料
+                p15 myp15s4 = (p15)Session["mydata"];
+                int i_my_chang_value = Convert.ToInt32(my_chang_value);
+                //接著寫 取值 給值
+                p15 my_get_p15 = myp15s4.getp15_At_data(i_my_chang_value);
+                    //button_edit_chang_i = i_my_chang_value;
+                   Session["button_edit_chang_i"] = i_my_chang_value;
+                D1_title_TextBox.Text = my_get_p15.問題;
+                answer_TextBox.Text = my_get_p15.回答;
+                D1_mustKeyin_CheckBox.Checked = my_get_p15.必須;
 
+                switch (my_get_p15.種類)
+                {
+                    case "單選題"://單選選(RadioButton)
+                        D1_type_DropDownList.SelectedValue = "RB";
+                        break;
+                    case "複選題"://複選(checkboxlist)
+                        D1_type_DropDownList.SelectedValue = "CB";
+                        break;
+
+                    default:
+                        D1_type_DropDownList.SelectedValue = "TB";
+                        break;
+                }
+
+                AddButton2.Text = "更改";
+
+            }
+          
+                //接著寫 取值 給值
+
+
+            }
 
 
         }
@@ -50,8 +87,9 @@ namespace Questionnaire
 
 
             //
-
-            //寫入資料
+            if(AddButton2.Text == "加入")
+            {
+         //寫入資料
             p15 myp15s2 = (p15)Session["mydata"];
             string value_type;
             switch (D1_type_DropDownList.SelectedValue)
@@ -73,6 +111,8 @@ namespace Questionnaire
             Session["mydata"]= myp15s2;
 
             //寫入資料
+            }
+   
             ////GridView1這邊是用舊的技術 上面是改良
             //DataTable dt = new DataTable();
 
@@ -114,10 +154,55 @@ namespace Questionnaire
 
                 cs.RegisterStartupScript(cstype, csname1, cstext1.ToString());
             }
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
             //調轉到tab02
+            if (AddButton2.Text == "更改")
+            {
+                //跟新資料更改 
+                p15 myp15s3 = (p15)Session["mydata"];
+                string value_type;
+                switch (D1_type_DropDownList.SelectedValue)
+                {
+                    case "RB"://單選選(RadioButton)
+                        value_type = "單選題";
+                        break;
+                    case "CB"://複選(checkboxlist)
+                        value_type = "複選題";
+                        break;
+
+                    default:
+                        value_type = "文字框";
+                        break;
+                }
+                string ddd= D1_title_TextBox.Text;
+                int tttttt = (int)Session["button_edit_chang_i"];
+                myp15s3.changp15_data(tttttt, D1_title_TextBox.Text, value_type, answer_TextBox.Text, D1_mustKeyin_CheckBox.Checked);
+            
+                Session["mydata"] = myp15s3;
+                AddButton2.Text = "加入";
+
+
+
+            }
+
+
+
 
             GridView1.DataBind();
-
+            
         }
 
         protected void GridView1_CallingDataMethods(object sender, CallingDataMethodsEventArgs e)
@@ -153,16 +238,9 @@ namespace Questionnaire
 
             //編輯功能
             //編輯功能02
-            if(Request.QueryString["Change_id"] != null)
-            {//編寫功能
-           string my_chang_value  = Request.QueryString["Change_id"].ToString();
-                //取得資料
-                p15 myp15s2 = (p15)Session["mydata"];
-                int i_my_chang_value = Convert.ToInt32(my_chang_value);
-                //接著寫
-            }
-           
-        
+            
+
+
             //編輯功能02
             //DataBind();
         }

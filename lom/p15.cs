@@ -48,6 +48,24 @@ namespace lom
           
 
         }
+
+        public void changp15_data(int i, string myname, string mytype, string myanswer_D2, Boolean myD1_mustKeyin)
+        {
+            p15s[i].問題 = myname;
+            p15s[i].種類 = mytype;
+            p15s[i].回答 = myanswer_D2;
+            p15s[i].必須 = myD1_mustKeyin;
+
+
+
+        }
+
+        public p15 getp15_At_data(int i)
+        {
+            return p15s[i];
+
+
+        }
     }
     //getp15_data
 }
