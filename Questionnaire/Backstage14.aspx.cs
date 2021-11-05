@@ -14,7 +14,7 @@ namespace Questionnaire
 {
     public partial class Backstage14 : System.Web.UI.Page
     {
-        DataTable dt = new DataTable();
+        //DataTable dt = new DataTable();
         // Add three columns in datatable and their names and data types
       
 
@@ -68,7 +68,8 @@ namespace Questionnaire
                     break;
             }
             
-            myp15s2.setp15_data(D1_title_TextBox.Text, value_type);
+            myp15s2.setp15_data(D1_title_TextBox.Text, value_type, answer_TextBox.Text, D1_mustKeyin_CheckBox.Checked);
+
             Session["mydata"]= myp15s2;
 
             //寫入資料
@@ -146,11 +147,23 @@ namespace Questionnaire
             for (int i = 0; i < GridView1.Rows.Count; i++)
             {
                 HyperLink ChangeHyperLink3 = (HyperLink)GridView1.Rows[i].FindControl("ChangeHyperLink3");
-                ChangeHyperLink3.NavigateUrl = "http://www.microsoft.com?id=" + i;//應後要改]
+                ChangeHyperLink3.NavigateUrl = "Backstage14.aspx?Change_id=" + i;//應後要改]
+                
             }
 
             //編輯功能
-
+            //編輯功能02
+            if(Request.QueryString["Change_id"] != null)
+            {//編寫功能
+           string my_chang_value  = Request.QueryString["Change_id"].ToString();
+                //取得資料
+                p15 myp15s2 = (p15)Session["mydata"];
+                int i_my_chang_value = Convert.ToInt32(my_chang_value);
+                //接著寫
+            }
+           
+        
+            //編輯功能02
             //DataBind();
         }
 

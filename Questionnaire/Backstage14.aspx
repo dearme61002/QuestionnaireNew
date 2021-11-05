@@ -215,6 +215,17 @@
                                     </asp:TemplateField>
                                 </Columns>
 
+
+                                  <Columns>
+                                    <asp:TemplateField >
+                                        <ItemTemplate>
+                                            
+                                            <asp:CheckBox ID="CheckBox_check_n" runat="server" Checked="<%#Item.必須 %>" Enabled="false" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+
+
                                 <Columns>
                                     <asp:TemplateField >
                                         <ItemTemplate>
