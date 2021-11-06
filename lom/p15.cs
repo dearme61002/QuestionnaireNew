@@ -66,6 +66,11 @@ namespace lom
 
 
         }
+
+        public void cancal_p15s()
+        {
+            p15s.RemoveRange(0, p15s.Count);
+        }
     }
     //getp15_data
 }

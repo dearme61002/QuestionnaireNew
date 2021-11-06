@@ -336,6 +336,60 @@ namespace Questionnaire
             }
             Session["mydata"] = myp15s2;
             //刪除
+
+            ////調轉到tab02
+            String csname1 = "PopupScript";
+            Type cstype = this.GetType();
+
+            // Get a ClientScriptManager reference from the Page class.
+            ClientScriptManager cs = Page.ClientScript;
+
+            // Check to see if the startup script is already registered.
+
+            if (!cs.IsStartupScriptRegistered(cstype, csname1))
+            {
+                StringBuilder cstext1 = new StringBuilder();
+                cstext1.Append("<script type=text/javascript> document.getElementById('tab01').style.display = 'none'; document.getElementById('tab02').style.display = 'block'; document.getElementById('litab01top').style.borderBottom = '1px solid #BCBCBC';document.getElementById('litab01top').style.backgroundColor = '#BCBCBC';document.getElementById('litab02top').style.borderBottom = 'none';document.getElementById('litab02top').style.backgroundColor = 'white';  </");
+                cstext1.Append("script>");
+
+                cs.RegisterStartupScript(cstype, csname1, cstext1.ToString());
+            }
+
+
+
+
+
+
+            GridView1.DataBind();
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            //取消
+            D1_title_TextBox.Text = string.Empty;
+            answer_TextBox.Text = string.Empty;
+            p15 myp15s2 = (p15)Session["mydata"];//先取出值
+            myp15s2.cancal_p15s();//移除所有
+            Session["mydata"] = myp15s2;
+
+            ////調轉到tab02
+            String csname1 = "PopupScript";
+            Type cstype = this.GetType();
+
+            // Get a ClientScriptManager reference from the Page class.
+            ClientScriptManager cs = Page.ClientScript;
+
+            // Check to see if the startup script is already registered.
+
+            if (!cs.IsStartupScriptRegistered(cstype, csname1))
+            {
+                StringBuilder cstext1 = new StringBuilder();
+                cstext1.Append("<script type=text/javascript> document.getElementById('tab01').style.display = 'none'; document.getElementById('tab02').style.display = 'block'; document.getElementById('litab01top').style.borderBottom = '1px solid #BCBCBC';document.getElementById('litab01top').style.backgroundColor = '#BCBCBC';document.getElementById('litab02top').style.borderBottom = 'none';document.getElementById('litab02top').style.backgroundColor = 'white';  </");
+                cstext1.Append("script>");
+
+                cs.RegisterStartupScript(cstype, csname1, cstext1.ToString());
+            }
+
             GridView1.DataBind();
         }
     }

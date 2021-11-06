@@ -152,7 +152,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="tab02" class="tab-inner" <%--style="display:none"--%>>
+                <div id="tab02" class="tab-inner" style="display:none">
                     <div>
                         <span>種類</span>
                         <asp:DropDownList ID="DropDownList1" runat="server">
@@ -240,7 +240,7 @@
                         <%--表單--%>
                     </div>
                     <div>
-                        <asp:Button ID="Button3" runat="server" Text="取消" />
+                        <asp:Button ID="Button3" runat="server" Text="取消" OnClick="Button3_Click" />
                         <asp:Button ID="Button4" runat="server" Text="送出" OnClick="Button4_Click" />
                     </div>
                 </div>
