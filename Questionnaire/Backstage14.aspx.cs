@@ -1,8 +1,10 @@
-﻿using lom;
+﻿using DAL;
+using lom;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -74,8 +76,65 @@ namespace Questionnaire
             string M_summary_Add = TextBoxM_summary.Text;
             DateTime start_time_Add = Convert.ToDateTime(txtStartDate.Text);
             DateTime end_time_Add = Convert.ToDateTime(txtEndDate.Text);
-            //讀資料
+            //讀資料1
+            string M_queation_sql = "INSERT INTO Question_M (M_title,start_time,end_time,M_summary) VALUES (@M_title, @start_time,@end_time,@M_summary);";
+            SqlParameter[] sqlParameters_M = new SqlParameter[]
+            {
+                new SqlParameter("@M_title",Title_Add),
+                new SqlParameter("@start_time",start_time_Add),
+                new SqlParameter("@end_time",end_time_Add),
+                new SqlParameter("@M_summary",M_summary_Add)
+            };
+            sqlhelp.executeNonQuerysql(M_queation_sql, sqlParameters_M, false);
+            string M_id_sql = "select MAX(M_id) from Question_M";
+            //讀資料2
+            int M_queation_id =Convert.ToInt32(sqlhelp.executeScalarsql(M_id_sql)) ;//m_id
+            string D1_queation_sql = "insert into Question_D1(M_id,D1_title,D1_mustKeyin,D1_type) values (@M_id,@D1_title,@D1_mustKeyin,@D1_type);";
+            p15 myp15s5 = (p15)Session["mydata"];
+            List<p15> my_in_DB = myp15s5.getp15_data();
+            foreach (var item in my_in_DB)
+            {
+                //type
+                string my_item_type;
+                switch (item.種類)
+                {
+                    case "單選題"://單選選(RadioButton)
+                        my_item_type = "RB";
+                        break;
+                    case "複選題"://複選(checkboxlist)
+                        my_item_type = "CB";
+                        break;
 
+                    default:
+                        my_item_type = "TB";
+                        break;
+                }
+                //type
+
+                SqlParameter[] sqlParameters_D1 = new SqlParameter[]
+                {
+                    new SqlParameter("@M_id",M_queation_id),
+                    new SqlParameter("@D1_title",item.問題),
+                    new SqlParameter("@D1_mustKeyin",item.必須),
+                    new SqlParameter("@D1_type",my_item_type)
+                };
+                sqlhelp.executeNonQuerysql(D1_queation_sql, sqlParameters_D1,false);
+                //讀資料2
+                //讀資料3
+                string D1_id_sql = "select MAX(D1_id) from Question_D1";
+                int D1_queation_id = Convert.ToInt32(sqlhelp.executeScalarsql(D1_id_sql));//D1_id
+                string D2_queation_sql = "INSERT INTO Question_D2(D1_id,M_id,answer) values(@D1_id,@M_id,@answer)";
+                SqlParameter[] sqlParameters_d2 = new SqlParameter[]
+                {
+                    new SqlParameter("@D1_id",D1_queation_id),
+                    new SqlParameter("@M_id",M_queation_id),
+                    new SqlParameter("@answer",item.回答)
+                };
+                sqlhelp.executeNonQuerysql(D2_queation_sql, sqlParameters_d2,false);
+
+                //讀資料3
+            }
+            //讀資料2
         }
 
         protected void AddButton2_Click(object sender, EventArgs e)
