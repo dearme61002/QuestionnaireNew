@@ -31,8 +31,21 @@ namespace Questionnaire
                 if (Request.QueryString["Change_id"] != null)
             {//編寫功能
                 string my_chang_value = Request.QueryString["Change_id"];
-                //取得資料
-                p15 myp15s4 = (p15)Session["mydata"];
+                    string change_m_title = Request.QueryString["M_title"];
+                    string change_m_M_summary = Request.QueryString["M_summary"];
+                    string change_m_txtStartDate = Request.QueryString["txtStartDate"];
+                    string chang_m_txtEndDate = Request.QueryString["txtEndDate"];
+
+                    //第一頁丟擲;
+                    TextBox2Title.Text = my_chang_value;
+                    TextBoxM_summary.Text = change_m_M_summary;
+                    txtStartDate.Text = change_m_txtStartDate;
+                    txtEndDate.Text = chang_m_txtEndDate;
+                    //第一頁丟擲;
+
+
+                    //取得資料
+                    p15 myp15s4 = (p15)Session["mydata"];
                 int i_my_chang_value = Convert.ToInt32(my_chang_value);
                 //接著寫 取值 給值
                 p15 my_get_p15 = myp15s4.getp15_At_data(i_my_chang_value);
@@ -58,8 +71,28 @@ namespace Questionnaire
 
                 AddButton2.Text = "更改";
 
-            }
-          
+
+                    ////調轉到tab02
+                    String csname1 = "PopupScript";
+                    Type cstype = this.GetType();
+
+                    // Get a ClientScriptManager reference from the Page class.
+                    ClientScriptManager cs = Page.ClientScript;
+
+                    // Check to see if the startup script is already registered.
+
+                    if (!cs.IsStartupScriptRegistered(cstype, csname1))
+                    {
+                        StringBuilder cstext1 = new StringBuilder();
+                        cstext1.Append("<script type=text/javascript> document.getElementById('tab01').style.display = 'none'; document.getElementById('tab02').style.display = 'block'; document.getElementById('litab01top').style.borderBottom = '1px solid #BCBCBC';document.getElementById('litab01top').style.backgroundColor = '#BCBCBC';document.getElementById('litab02top').style.borderBottom = 'none';document.getElementById('litab02top').style.backgroundColor = 'white';  </");
+                        cstext1.Append("script>");
+
+                        cs.RegisterStartupScript(cstype, csname1, cstext1.ToString());
+                    }
+                    ////調轉到tab02
+
+                }
+
                 //接著寫 取值 給值
 
 
@@ -135,6 +168,8 @@ namespace Questionnaire
                 //讀資料3
             }
             //讀資料2
+            //跳頁
+            Response.Redirect("Backstage.aspx");
         }
 
         protected void AddButton2_Click(object sender, EventArgs e)
@@ -291,7 +326,7 @@ namespace Questionnaire
             for (int i = 0; i < GridView1.Rows.Count; i++)
             {
                 HyperLink ChangeHyperLink3 = (HyperLink)GridView1.Rows[i].FindControl("ChangeHyperLink3");
-                ChangeHyperLink3.NavigateUrl = "Backstage14.aspx?Change_id=" + i;//應後要改]
+                ChangeHyperLink3.NavigateUrl = "Backstage14.aspx?Change_id=" + i+ "&M_title=" + TextBox2Title.Text+ "&M_summary="+ TextBoxM_summary.Text+ "&txtStartDate="+ txtStartDate.Text+ "&txtEndDate="+ txtEndDate.Text;//應後要改]
                 
             }
 
