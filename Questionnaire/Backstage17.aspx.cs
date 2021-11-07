@@ -1,4 +1,6 @@
 ﻿using DAL;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -35,8 +37,44 @@ namespace Questionnaire
                     //        answer_list.Add(sqlDataReader_answer_d1["Answer"].ToString());
                     //}
                     //}
-                   
+                    //固定問題
+                    Label3.Visible = true;
+                    Label4.Visible = true;
+                    Label5.Visible = true;
+                    Label6.Visible = true;
 
+                    string sql_name = "select name from Answer_M where AM_id =@AM_id";
+                    SqlParameter[] sqlParameters_name = new SqlParameter[]
+                    {
+                        new SqlParameter("@AM_id",answer_AM_id)
+                    };
+                    name.Text = sqlhelp.executeScalarsql(sql_name, sqlParameters_name,false).ToString();
+                    name.Visible = true;
+                    string sql_phone = "select phone from Answer_M where AM_id =@AM_id";
+                    SqlParameter[] sqlParameters_phone = new SqlParameter[]
+                    {
+                        new SqlParameter("@AM_id",answer_AM_id)
+                    };
+                    phone.Text = sqlhelp.executeScalarsql(sql_phone, sqlParameters_phone, false).ToString();
+                    phone.Visible = true;
+                    string sql_email = "select email from Answer_M where AM_id =@AM_id";
+                    SqlParameter[] sqlParameters_email = new SqlParameter[]
+                    {
+                        new SqlParameter("@AM_id",answer_AM_id)
+                    };
+                    email.Text = sqlhelp.executeScalarsql(sql_email, sqlParameters_email, false).ToString();
+                    email.Visible = true;
+
+
+                    string sql_age = "select age from Answer_M where AM_id =@AM_id";
+                    SqlParameter[] sqlParameters_age = new SqlParameter[]
+                    {
+                        new SqlParameter("@AM_id",answer_AM_id)
+                    };
+                    age.Visible = true;
+                    age.Text = sqlhelp.executeScalarsql(sql_age, sqlParameters_age, false).ToString();
+                   
+                    //固定問題
                     GridView1.Visible = false;
                     Button_outData.Visible = false;
 
@@ -167,6 +205,8 @@ namespace Questionnaire
                         Literal end = new Literal();
                         end.Text = "</table>";
                         PlaceHolder1.Controls.Add(end);
+
+
                     }
 
 
@@ -268,6 +308,30 @@ namespace Questionnaire
                 //要隱藏的欄位    
                 e.Row.Cells[0].Visible = false;
             }
+        }
+
+        protected void TOP_Button1_Click(object sender, EventArgs e)
+        {
+            if (Request.QueryString["AM_id"] != null)
+            {
+            Response.Redirect("Backstage17.aspx?M_id="+Request.QueryString["M_id"].ToString());
+            }
+            else
+            {
+                Response.Redirect("Backstage.aspx");
+            }
+           
+        }
+
+        protected void Button_outData_Click(object sender, EventArgs e)
+        {
+        //    建立環境
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            ISheet u_sheet = workbook.CreateSheet(" 簡單統計報表_sjeet");
+
+            //寫入資料
         }
     }
 }

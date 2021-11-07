@@ -112,7 +112,7 @@
             <asp:Label ID="Label1" runat="server" Text="後台管理詳細資料" Style="font-size: 100px"></asp:Label>
             <div style="float: left;">
                 <div style="margin-top: 250px">
-                    <asp:HyperLink ID="HyperLink1" runat="server">問卷管理</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Backstage.aspx">問卷管理</asp:HyperLink>
                     <br />
                     <asp:HyperLink ID="HyperLink2" runat="server">常見問題管理</asp:HyperLink>
                 </div>
@@ -130,7 +130,7 @@
                 <div id="tab01" class="tab-inner">
                     <div style="margin-top: 30px; padding-left: 10px;margin-bottom:20px" >
                         &nbsp;&nbsp;
-                        <asp:Button ID="Button_outData" runat="server" Text="匯出" />
+                        <asp:Button ID="Button_outData" runat="server" Text="匯出" OnClick="Button_outData_Click" />
                     </div>
                     <div>
                         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="AM_id" DataSourceID="SqlDataSource1" OnRowCreated="GridView1_RowCreated" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AllowPaging="True">
@@ -147,9 +147,36 @@
                                 <asp:HyperLinkField DataNavigateUrlFields="AM_id,M_id" DataNavigateUrlFormatString="https://localhost:44374/Backstage17?M_id={1}&amp;AM_id={0}" HeaderText="觀看細節" Text="前往" />
                             </Columns>
                         </asp:GridView>
-                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [AM_id], [name], [writeTime], [M_id] FROM [Answer_M]"></asp:SqlDataSource>
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [AM_id], [name], [writeTime], [M_id] FROM [Answer_M] WHERE ([M_id] = @M_id)">
+                            <SelectParameters>
+                                <asp:QueryStringParameter Name="M_id" QueryStringField="M_id" Type="Int32" />
+                            </SelectParameters>
+                        </asp:SqlDataSource>
+
+                            <%--固定問題--%>
+        <div style="margin-left:20px;margin-bottom:20px">
+            <div>
+           <asp:Label ID="Label3" runat="server" Text="姓名 :" Visible="false"></asp:Label><asp:TextBox ID="name" runat="server" Visible="false" Enabled="false"></asp:TextBox>
+            </div>
+            <div>
+                <asp:Label ID="Label4" runat="server" Text="手機 :" Visible="false"></asp:Label><asp:TextBox ID="phone" runat="server" Visible="false" Enabled="false"></asp:TextBox>
+            </div>
+            <div>
+          <asp:Label ID="Label5" runat="server" Text="E-mail :" Visible="false"></asp:Label><asp:TextBox ID="email" runat="server" Visible="false" Enabled="false"></asp:TextBox>
+            </div>
+            <div>
+           <asp:Label ID="Label6" runat="server" Text="年齡 :" Visible="false"></asp:Label><asp:TextBox ID="age" runat="server" Visible="false" Enabled="false"></asp:TextBox>
+            </div>
+        </div>
+        <%--固定問題--%>
+
 
                         <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+
+                        <div>
+                            <asp:Button ID="TOP_Button1" runat="server" Text="上一頁" OnClick="TOP_Button1_Click" />
+                        </div>
+
                     </div>
 
                 </div>

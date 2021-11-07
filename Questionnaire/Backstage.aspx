@@ -32,7 +32,7 @@
             <asp:Label ID="Label1" runat="server" Text="後台" Style="font-size: 100px"></asp:Label>
             <div style="float: left;">
                 <div style="margin-top: 250px">
-                    <asp:HyperLink ID="HyperLink1" runat="server">問卷管理</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="front06.aspx">前台管理</asp:HyperLink>
                     <br />
                     <asp:HyperLink ID="HyperLink2" runat="server">常見問題管理</asp:HyperLink>
                 </div>
@@ -78,7 +78,7 @@
                         <asp:BoundField DataField="M_id" HeaderText="#" InsertVisible="False" ReadOnly="True" SortExpression="M_id" />
                         <asp:TemplateField HeaderText="標題">
                             <ItemTemplate>
-                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("M_id", "pageA.aspx?M_id={0}") %>' Text='<%# Eval("M_title") %>'></asp:HyperLink>
+                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("M_id", "Backstage17.aspx?M_id={0}") %>' Text='<%# Eval("M_title") %>'></asp:HyperLink>
                             </ItemTemplate>
                             <ItemStyle Font-Bold="True" Font-Size="Larger" />
                         </asp:TemplateField>
