@@ -63,44 +63,44 @@
 
 
 
-        <script>
-       
-
-            $(function () {
-
-                var $li = $('ul.tab-title li');
-                /* $($li.eq(0).addClass('active').find('a').attr('href')).siblings('.tab-inner').hide();*/ //初始化 但會影響到動態表單所以取消
-
-                $li.click(function () {
-                    $($(this).find('a').attr('href')).show().siblings('.tab-inner').hide();
-                    $(this).addClass('active').siblings('.active').removeClass('active');
-                });
-
-                //document.getElementById('tab01Button').addEventListener("click", function () {
-                //    document.getElementById('tab02top').click();
-                //   /* event.preventDefault();*/
-                //});
-                /*head頭*/
-                document.getElementById('litab02top').addEventListener("click", () => {
-                    document.getElementById('litab01top').style.borderBottom = '1px solid #BCBCBC';
-                    document.getElementById('litab01top').style.backgroundColor = '#BCBCBC';
-                    document.getElementById('litab02top').style.borderBottom = 'none';
-                    document.getElementById('litab02top').style.backgroundColor = 'white';
-                });
-
-                document.getElementById('litab01top').addEventListener("click", () => {
-                    document.getElementById('litab02top').style.borderBottom = '1px solid #BCBCBC';
-                    document.getElementById('litab02top').style.backgroundColor = '#BCBCBC';
-                    document.getElementById('litab01top').style.borderBottom = 'none';
-                    document.getElementById('litab01top').style.backgroundColor = 'white';
-
-                });
-                /*head頭*/
-                
+    <script>
 
 
-             });
-        </script>
+        $(function () {
+
+            var $li = $('ul.tab-title li');
+            /* $($li.eq(0).addClass('active').find('a').attr('href')).siblings('.tab-inner').hide();*/ //初始化 但會影響到動態表單所以取消
+
+            $li.click(function () {
+                $($(this).find('a').attr('href')).show().siblings('.tab-inner').hide();
+                $(this).addClass('active').siblings('.active').removeClass('active');
+            });
+
+            //document.getElementById('tab01Button').addEventListener("click", function () {
+            //    document.getElementById('tab02top').click();
+            //   /* event.preventDefault();*/
+            //});
+            /*head頭*/
+            document.getElementById('litab02top').addEventListener("click", () => {
+                document.getElementById('litab01top').style.borderBottom = '1px solid #BCBCBC';
+                document.getElementById('litab01top').style.backgroundColor = '#BCBCBC';
+                document.getElementById('litab02top').style.borderBottom = 'none';
+                document.getElementById('litab02top').style.backgroundColor = 'white';
+            });
+
+            document.getElementById('litab01top').addEventListener("click", () => {
+                document.getElementById('litab02top').style.borderBottom = '1px solid #BCBCBC';
+                document.getElementById('litab02top').style.backgroundColor = '#BCBCBC';
+                document.getElementById('litab01top').style.borderBottom = 'none';
+                document.getElementById('litab01top').style.backgroundColor = 'white';
+
+            });
+            /*head頭*/
+
+
+
+        });
+    </script>
 
 
     <title></title>
@@ -121,13 +121,37 @@
             <%--內容--%>
 
             <div id="tab-demo" style="float: right; margin-top: 100px">
+
                 <ul class="tab-title">
                     <li style="background-color: white; border-bottom: none" id="litab01top"><a href="#tab01" id="tab01top">詳細資料</a></li>
                     <li id="litab02top"><a href="#tab02" id="tab02top">統計</a></li>
 
                 </ul>
                 <div id="tab01" class="tab-inner">
-                    11
+                    <div style="margin-top: 30px; padding-left: 10px;margin-bottom:20px" >
+                        &nbsp;&nbsp;
+                        <asp:Button ID="Button_outData" runat="server" Text="匯出" />
+                    </div>
+                    <div>
+                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="AM_id" DataSourceID="SqlDataSource1" OnRowCreated="GridView1_RowCreated" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AllowPaging="True">
+                            <Columns>
+                                <asp:BoundField DataField="AM_id" HeaderText="AM_ID" ReadOnly="True" SortExpression="AM_id" />
+                                <asp:TemplateField HeaderText="#">
+                                    <ItemTemplate>
+                                        <%#Container.DataItemIndex+1%>
+                                    </ItemTemplate>
+
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="name" HeaderText="姓名" SortExpression="name" />
+                                <asp:BoundField DataField="writeTime" HeaderText="填寫時間" SortExpression="writeTime" />
+                                <asp:HyperLinkField DataNavigateUrlFields="AM_id,M_id" DataNavigateUrlFormatString="https://localhost:44374/Backstage17?M_id={1}&amp;AM_id={0}" HeaderText="觀看細節" Text="前往" />
+                            </Columns>
+                        </asp:GridView>
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [AM_id], [name], [writeTime], [M_id] FROM [Answer_M]"></asp:SqlDataSource>
+
+                        <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+                    </div>
+
                 </div>
                 <div id="tab02" class="tab-inner" style="display: none">
                     22
