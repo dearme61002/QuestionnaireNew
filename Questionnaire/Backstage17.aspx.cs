@@ -1,4 +1,5 @@
 ﻿using DAL;
+using lom;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
@@ -48,7 +49,7 @@ namespace Questionnaire
                     {
                         new SqlParameter("@AM_id",answer_AM_id)
                     };
-                    name.Text = sqlhelp.executeScalarsql(sql_name, sqlParameters_name,false).ToString();
+                    name.Text = sqlhelp.executeScalarsql(sql_name, sqlParameters_name, false).ToString();
                     name.Visible = true;
                     string sql_phone = "select phone from Answer_M where AM_id =@AM_id";
                     SqlParameter[] sqlParameters_phone = new SqlParameter[]
@@ -73,7 +74,7 @@ namespace Questionnaire
                     };
                     age.Visible = true;
                     age.Text = sqlhelp.executeScalarsql(sql_age, sqlParameters_age, false).ToString();
-                   
+
                     //固定問題
                     GridView1.Visible = false;
                     Button_outData.Visible = false;
@@ -98,7 +99,7 @@ namespace Questionnaire
 
 
 
-            
+
                     //讀取這一份問卷的每一個題目
                     string sql2 = "select * from Question_D1 where M_id=@M_id";
                     SqlParameter[] sqlParameters = new SqlParameter[]
@@ -214,7 +215,7 @@ namespace Questionnaire
                     //
                     //給值
                     getPageA getPageA = new getPageA();
-                    int Qno = getPageA.Compute_QNo(Convert.ToInt32(answer_M_id) ); /*算出有幾個題目*/
+                    int Qno = getPageA.Compute_QNo(Convert.ToInt32(answer_M_id)); /*算出有幾個題目*/
                     //
                     string answer_d1_sql = "select * from Answer_D1 where AM_id=@AM_id";
                     SqlParameter[] sqlParameters_answer_d1 = new SqlParameter[]
@@ -237,14 +238,14 @@ namespace Questionnaire
                                 {
                                     case "System.Web.UI.WebControls.RadioButtonList":
                                         RadioButtonList CBL2 = (RadioButtonList)PlaceHolder1.FindControl(WebcontrolID);
-                                        
-                                            for (int C = 0; C < (CBL2.Items.Count); C++)
+
+                                        for (int C = 0; C < (CBL2.Items.Count); C++)
+                                        {
+                                            if (CBL2.Items[C].Text == sqlDataReader_answer_d1["Answer"].ToString())
                                             {
-                                                if(CBL2.Items[C].Text == sqlDataReader_answer_d1["Answer"].ToString())
-                                                {
-                                                    CBL2.Items[C].Selected = true;
-                                                }
+                                                CBL2.Items[C].Selected = true;
                                             }
+                                        }
                                         CBL2.Enabled = false;
 
 
@@ -252,18 +253,18 @@ namespace Questionnaire
                                         break;
                                     case "System.Web.UI.WebControls.CheckBoxList":
                                         CheckBoxList CBL1 = (CheckBoxList)PlaceHolder1.FindControl(WebcontrolID);
-                                     
-                                         String[] value_all =  sqlDataReader_answer_d1["Answer"].ToString().Split(';');
+
+                                        String[] value_all = sqlDataReader_answer_d1["Answer"].ToString().Split(';');
                                         for (int j = 0; j < (value_all.Count()); j++)
                                         {
                                             for (int jj = 0; jj < (CBL1.Items.Count); jj++)
                                             {
 
-                                            
-                                            if (CBL1.Items[jj].Text == value_all[j].ToString())
-                                            {
-                                                CBL1.Items[jj].Selected = true;
-                                            };
+
+                                                if (CBL1.Items[jj].Text == value_all[j].ToString())
+                                                {
+                                                    CBL1.Items[jj].Selected = true;
+                                                };
                                             }
                                         }
 
@@ -283,7 +284,7 @@ namespace Questionnaire
                         }
                     }
 
-                    
+
 
 
                 }
@@ -314,24 +315,30 @@ namespace Questionnaire
         {
             if (Request.QueryString["AM_id"] != null)
             {
-            Response.Redirect("Backstage17.aspx?M_id="+Request.QueryString["M_id"].ToString());
+                Response.Redirect("Backstage17.aspx?M_id=" + Request.QueryString["M_id"].ToString());
             }
             else
             {
                 Response.Redirect("Backstage.aspx");
             }
-           
+
         }
 
         protected void Button_outData_Click(object sender, EventArgs e)
         {
-        //    建立環境
+            //    建立環境
             Response.Clear();
             Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             XSSFWorkbook workbook = new XSSFWorkbook();
             ISheet u_sheet = workbook.CreateSheet(" 簡單統計報表_sjeet");
 
             //寫入資料
+            string M_id = Request.QueryString["M_id"];
+            string sql_Mydata = "SELECT　DISTINCT Q_M.M_title, Q_M.M_summary,Q_1.D1_title, A_D1.Answer,A_M.name,A_M.age,A_M.email,A_M.phone,A_M.writeTime,Q_M.start_time,Q_M.end_time from Answer_M as A_M INNER JOIN Question_M as Q_M  on A_M.M_id = Q_M.M_idinner join Answer_D1 as A_D1 on A_D1.AM_id = A_M.AM_idinner join Question_D1 as Q_1 on Q_1.M_id = A_M.M_idinner join Question_D2 as Q_2 on Q_2.M_id = A_M.M_idwhere A_M.M_id = @M_id";
+            B17exel my_out_b17 = new B17exel();
+            List<B17exel> b17Exels = new List<B17exel>();
+
+
         }
     }
 }

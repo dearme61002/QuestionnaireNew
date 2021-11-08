@@ -23,7 +23,7 @@ namespace lom
         public string phone { get; set; }
 
         public string email { get; set; }
-
+       
         public int age { get; set; }
 
         public string writeTime { get; set; }
