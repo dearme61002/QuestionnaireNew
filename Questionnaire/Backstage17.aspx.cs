@@ -329,7 +329,7 @@ namespace Questionnaire
         protected void Button_outData_Click(object sender, EventArgs e)
         {
 
-
+            /////
             //寫入資料
             string M_id_b17 = Request.QueryString["M_id"];
             string sql_Mydata = "SELECT  name,phone,email,age, writeTime,start_time,email,M_title,M_summary,end_time FROM Answer_M  INNER JOIN Question_M on Answer_M.M_id=Question_M.M_id  WHERE Answer_M.M_id = @M_id ";
