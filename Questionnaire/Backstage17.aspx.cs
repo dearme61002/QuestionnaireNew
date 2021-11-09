@@ -328,15 +328,11 @@ namespace Questionnaire
 
         protected void Button_outData_Click(object sender, EventArgs e)
         {
-            //    建立環境
-            Response.Clear();
-            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            XSSFWorkbook workbook = new XSSFWorkbook();
-            ISheet u_sheet = workbook.CreateSheet(" 簡單統計報表_sjeet");
+
 
             //寫入資料
             string M_id_b17 = Request.QueryString["M_id"];
-            string sql_Mydata = "SELECT　DISTINCT Q_M.M_title, Q_M.M_summary,Q_1.D1_title, A_D1.Answer,A_M.name,A_M.age,A_M.email,A_M.phone,A_M.writeTime,Q_M.start_time,Q_M.end_time from Answer_M as A_M INNER JOIN Question_M as Q_M  on A_M.M_id = Q_M.M_id inner join Answer_D1 as A_D1 on A_D1.AM_id = A_M.AM_id inner join Question_D1 as Q_1 on Q_1.M_id = A_M.M_id inner join Question_D2 as Q_2 on Q_2.M_id = A_M.M_id where A_M.M_id = @M_id";
+            string sql_Mydata = "SELECT  name,phone,email,age, writeTime,start_time,email,M_title,M_summary,end_time FROM Answer_M  INNER JOIN Question_M on Answer_M.M_id=Question_M.M_id  WHERE Answer_M.M_id = @M_id ";
             SqlParameter[] sqlParameters_b17 = new SqlParameter[]
             {
                 new SqlParameter("@M_id",M_id_b17)
@@ -349,23 +345,45 @@ namespace Questionnaire
             {
                 while (sqlData_b17.Read())
                 {
-               B17exel my_out_b17 = new B17exel();
+                    B17exel my_out_b17 = new B17exel();
                     my_out_b17.M_title = (string)sqlData_b17["M_title"];
                     my_out_b17.M_summary = (string)sqlData_b17["M_summary"];
-                    my_out_b17.D1_title = (string)sqlData_b17["D1_title"];
-                    my_out_b17.Answer = (string)sqlData_b17["Answer"];
+                    
+        
                     my_out_b17.name = (string)sqlData_b17["name"];
                     my_out_b17.age = (int)sqlData_b17["age"];
                     my_out_b17.email = (string)sqlData_b17["email"];
                     my_out_b17.phone = (string)sqlData_b17["phone"];
                     my_out_b17.writeTime = sqlData_b17["writeTime"].ToString();
                     my_out_b17.start_time = sqlData_b17["start_time"].ToString();
-                    my_out_b17.end_time =  sqlData_b17["end_time"].ToString();
+                    my_out_b17.end_time = sqlData_b17["end_time"].ToString();
                     mydata_b17s_list.Add(my_out_b17);
                 };
             }
             sqlData_b17.Close();
 
+
+            ////System.Windows.Forms.FolderBrowserDialog path = new System.Windows.Forms.FolderBrowserDialog();
+            ////path.Description = "請選擇欲轉換的主目錄,程序會找到底下的子目錄及檔案";
+            ////path.ShowDialog();
+
+             
+            DAL.Open_urlPath open_UrlPath = new Open_urlPath();
+            open_UrlPath.setExcel_Title("標題","副標題", "開始時間", "結束時間","姓名", "電話", "電子郵件","年齡","填寫時間");
+            open_UrlPath.setExcel_MyList_data(mydata_b17s_list);
+            System.Threading.Thread s = new System.Threading.Thread(new System.Threading.ThreadStart(open_UrlPath.getExcel));
+            s.ApartmentState = System.Threading.ApartmentState.STA;
+            s.Start();
+
+
+            //建立環境
+            //Response.Clear();
+            //Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            //XSSFWorkbook workbook = new XSSFWorkbook();
+            //ISheet u_sheet = workbook.CreateSheet(" 簡單統計報表_sjeet");
+
+           
+            //
 
 
 
