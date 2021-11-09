@@ -14,6 +14,8 @@ namespace Questionnaire
 {
     public partial class Backstage17 : System.Web.UI.Page
     {
+       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -333,10 +335,39 @@ namespace Questionnaire
             ISheet u_sheet = workbook.CreateSheet(" 簡單統計報表_sjeet");
 
             //寫入資料
-            string M_id = Request.QueryString["M_id"];
-            string sql_Mydata = "SELECT　DISTINCT Q_M.M_title, Q_M.M_summary,Q_1.D1_title, A_D1.Answer,A_M.name,A_M.age,A_M.email,A_M.phone,A_M.writeTime,Q_M.start_time,Q_M.end_time from Answer_M as A_M INNER JOIN Question_M as Q_M  on A_M.M_id = Q_M.M_idinner join Answer_D1 as A_D1 on A_D1.AM_id = A_M.AM_idinner join Question_D1 as Q_1 on Q_1.M_id = A_M.M_idinner join Question_D2 as Q_2 on Q_2.M_id = A_M.M_idwhere A_M.M_id = @M_id";
-            B17exel my_out_b17 = new B17exel();
-            List<B17exel> b17Exels = new List<B17exel>();
+            string M_id_b17 = Request.QueryString["M_id"];
+            string sql_Mydata = "SELECT　DISTINCT Q_M.M_title, Q_M.M_summary,Q_1.D1_title, A_D1.Answer,A_M.name,A_M.age,A_M.email,A_M.phone,A_M.writeTime,Q_M.start_time,Q_M.end_time from Answer_M as A_M INNER JOIN Question_M as Q_M  on A_M.M_id = Q_M.M_id inner join Answer_D1 as A_D1 on A_D1.AM_id = A_M.AM_id inner join Question_D1 as Q_1 on Q_1.M_id = A_M.M_id inner join Question_D2 as Q_2 on Q_2.M_id = A_M.M_id where A_M.M_id = @M_id";
+            SqlParameter[] sqlParameters_b17 = new SqlParameter[]
+            {
+                new SqlParameter("@M_id",M_id_b17)
+            };
+
+            List<B17exel> mydata_b17s_list = new List<B17exel>();
+
+            SqlDataReader sqlData_b17 = sqlhelp.executeReadesql(sql_Mydata, sqlParameters_b17, false);
+            if (sqlData_b17.HasRows)
+            {
+                while (sqlData_b17.Read())
+                {
+               B17exel my_out_b17 = new B17exel();
+                    my_out_b17.M_title = (string)sqlData_b17["M_title"];
+                    my_out_b17.M_summary = (string)sqlData_b17["M_summary"];
+                    my_out_b17.D1_title = (string)sqlData_b17["D1_title"];
+                    my_out_b17.Answer = (string)sqlData_b17["Answer"];
+                    my_out_b17.name = (string)sqlData_b17["name"];
+                    my_out_b17.age = (int)sqlData_b17["age"];
+                    my_out_b17.email = (string)sqlData_b17["email"];
+                    my_out_b17.phone = (string)sqlData_b17["phone"];
+                    my_out_b17.writeTime = sqlData_b17["writeTime"].ToString();
+                    my_out_b17.start_time = sqlData_b17["start_time"].ToString();
+                    my_out_b17.end_time =  sqlData_b17["end_time"].ToString();
+                    mydata_b17s_list.Add(my_out_b17);
+                };
+            }
+            sqlData_b17.Close();
+
+
+
 
 
         }
