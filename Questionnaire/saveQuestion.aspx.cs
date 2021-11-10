@@ -30,10 +30,10 @@ namespace Questionnaire
                 new SqlParameter("@save_answer",answer),
                 new SqlParameter("@save_type",type)
             };
-            sqlhelp.executeNonQuerysql(sql_add,sqlParameters,false);
+            sqlhelp.executeNonQuerysql(sql_add, sqlParameters, false);
             //for (int i = 0; i < GridView1.Rows.Count; i++)
             //{
-                     
+
             //  Label mytype_label =  (Label)GridView1.Rows[i].FindControl("My_type");
             //    string Mytype_value = GridView1.Rows[i].Cells[0].Text;
             //    string value_type=string.Empty;
@@ -83,7 +83,25 @@ namespace Questionnaire
                 }
                 mytype_label.Text = value_type;
             }
- 
+
+
+        }
+
+        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
+            string id = GridView1.DataKeys[e.RowIndex].Value.ToString();
+
+            string sql = "DELETE FROM My_save WHERE save_id=@save_id";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@save_id",id)
+             };
+            sqlhelp.executeNonQuerysql(sql, sqlParameters, false);
+         }
+
+        protected void SqlDataSource1_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
+        {
 
         }
     }

@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div style="margin-top: 50px">
-                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" OnRowCreated="GridView1_RowCreated">
+                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" OnRowCreated="GridView1_RowCreated" OnRowDeleting="GridView1_RowDeleting" DataKeyNames="save_id">
                         <Columns>
                             <asp:BoundField DataField="save_type" HeaderText="type" SortExpression="save_type" />
                             <asp:BoundField DataField="save_id" HeaderText="#" InsertVisible="False" ReadOnly="True" SortExpression="save_id" />
@@ -53,9 +53,15 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
 
+                            <asp:TemplateField HeaderText="刪除" ShowHeader="False">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete" Text="刪除"></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
                         </Columns>
                     </asp:GridView>
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [save_id], [save_name], [save_question], [save_answer], [save_type] FROM [My_save]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [save_id], [save_name], [save_question], [save_answer], [save_type] FROM [My_save]" OnSelecting="SqlDataSource1_Selecting" DeleteCommand=" "></asp:SqlDataSource>
                 </div>
             </div>
             <div style="clear: both"></div>
