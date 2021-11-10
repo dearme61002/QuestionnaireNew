@@ -15,10 +15,13 @@ namespace DAL
 {
     public class Open_urlPath
     {
+        string Myfilename = string.Empty;
         string[] titles = { };
+
         List<B17exel> mydata_b17s_list { get; set; }
-        public void setExcel_Title(params string[] Settitle)
+        public void setExcel_Title(string my_filename, params string[] Settitle)
         {
+            Myfilename = my_filename;
             titles = Settitle;
         }
 
@@ -144,7 +147,7 @@ namespace DAL
 
                 SaveFileDialog dialog = new SaveFileDialog();
                     dialog.Title = "Save File";
-                    dialog.FileName = "Product.xls";
+                    dialog.FileName = Myfilename+ DateTime.UtcNow.ToString("MMddyyyyhhmmssffftt") +".xls";  //檔名
                     dialog.Filter = "Excel Files(*.xls)|*.xls";
                      dialog.ShowDialog();
 

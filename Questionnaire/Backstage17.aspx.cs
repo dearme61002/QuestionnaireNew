@@ -366,10 +366,15 @@ namespace Questionnaire
             ////System.Windows.Forms.FolderBrowserDialog path = new System.Windows.Forms.FolderBrowserDialog();
             ////path.Description = "請選擇欲轉換的主目錄,程序會找到底下的子目錄及檔案";
             ////path.ShowDialog();
+            string my_title_sql = "select M_title from Question_M where M_id=@M_id";
+            SqlParameter[] sqlParameter_MY_title = new SqlParameter[]
+            {
+                new SqlParameter("@M_id",M_id_b17)
+            };
+            string my_title = sqlhelp.executeScalarsql(my_title_sql, sqlParameter_MY_title, false).ToString();
 
-             
             DAL.Open_urlPath open_UrlPath = new Open_urlPath();
-            open_UrlPath.setExcel_Title("標題","副標題", "開始時間", "結束時間","姓名", "電話", "電子郵件","年齡","填寫時間");
+            open_UrlPath.setExcel_Title(my_title,"標題","副標題", "開始時間", "結束時間","姓名", "電話", "電子郵件","年齡","填寫時間");
             open_UrlPath.setExcel_MyList_data(mydata_b17s_list);
             System.Threading.Thread s = new System.Threading.Thread(new System.Threading.ThreadStart(open_UrlPath.getExcel));
             s.ApartmentState = System.Threading.ApartmentState.STA;
