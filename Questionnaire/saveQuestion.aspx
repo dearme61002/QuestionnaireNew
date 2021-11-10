@@ -35,11 +35,27 @@
                         </asp:DropDownList>
                     </div>
                     <div style="text-align: center">
-                        <asp:Button ID="Button1_Add" runat="server" Text="增加" />
+                        <asp:Button ID="Button1_Add" runat="server" Text="增加" OnClick="Button1_Add_Click" />
                     </div>
                 </div>
                 <div style="margin-top: 50px">
-                    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" OnRowCreated="GridView1_RowCreated">
+                        <Columns>
+                            <asp:BoundField DataField="save_type" HeaderText="type" SortExpression="save_type" />
+                            <asp:BoundField DataField="save_id" HeaderText="#" InsertVisible="False" ReadOnly="True" SortExpression="save_id" />
+                            <asp:BoundField DataField="save_name" HeaderText="選項名子" SortExpression="save_name" />
+                            <asp:BoundField DataField="save_question" HeaderText="問題" SortExpression="save_question" />
+                            <asp:BoundField DataField="save_answer" HeaderText="回答" SortExpression="save_answer" />
+
+                            <asp:TemplateField HeaderText="種類">
+                                <ItemTemplate>
+                                    <asp:Label runat="server" Text="Label" ID="My_type"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                        </Columns>
+                    </asp:GridView>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [save_id], [save_name], [save_question], [save_answer], [save_type] FROM [My_save]"></asp:SqlDataSource>
                 </div>
             </div>
             <div style="clear: both"></div>
