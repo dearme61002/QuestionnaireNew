@@ -89,7 +89,7 @@ namespace Questionnaire
 
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-
+            //試試不一樣的解法
             string id = GridView1.DataKeys[e.RowIndex].Value.ToString();
 
             string sql = "DELETE FROM My_save WHERE save_id=@save_id";

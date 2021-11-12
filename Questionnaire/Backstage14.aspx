@@ -156,7 +156,7 @@
                     <div>
                         <span>種類</span>
                         <asp:DropDownList ID="DropDownList1" runat="server">
-                            <asp:ListItem Value="0">自訂問題</asp:ListItem>
+                            <asp:ListItem Value="mq">自訂問題</asp:ListItem>
                         </asp:DropDownList>
                     </div>
                     <div style="margin-top: 30px">
