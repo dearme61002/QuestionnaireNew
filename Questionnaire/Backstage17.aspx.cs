@@ -311,108 +311,94 @@ namespace Questionnaire
                 //
             }
             /////
-            // Define the name and type of the client scripts on the page.
-            String csname1 = "PopupScript";
-            Type cstype = this.GetType();
-
-            // Get a ClientScriptManager reference from the Page class.
-            ClientScriptManager cs = Page.ClientScript;
-
-            // Check to see if the startup script is already registered.
-            if (!cs.IsStartupScriptRegistered(cstype, csname1))
+            string all_title_sql = "select* from Question_D1 where M_id = 24";
+            string[] all_list = { };
+            StringBuilder HtmlstringBuilder = new StringBuilder();
+            SqlDataReader sqlData_all = sqlhelp.executeReadesql(all_title_sql);
+           StringBuilder cstext1 = new StringBuilder();
+ ClientScriptManager cs = Page.ClientScript;
+ String csname1 = "PopupScript";
+                    Type cstype = this.GetType();
+            if (sqlData_all.HasRows)
             {
-
-                StringBuilder cstext1 = new StringBuilder();
-
-
-                cstext1.Append("<script type=text/javascript>");
-                //01
-                cstext1.Append("var ctx = document.getElementById('myChart');");
-                cstext1.Append("var myChart = new Chart(ctx, {");
-                cstext1.Append("type: 'bar',");
-                cstext1.Append("data: {");
-
-                cstext1.Append("labels: [");
-
-                string all_title_sql = "select* from Question_D1 where M_id = 24";
-                string[] all_list = { };
-                SqlDataReader sqlData_all= sqlhelp.executeReadesql(all_title_sql);
-                if (sqlData_all.HasRows)
+                while (sqlData_all.Read())
                 {
-                    while (sqlData_all.Read())
+                    string iii_D1 = "select answer from Question_D2 where D1_id=@D1_id";
+                    SqlParameter[] sqlParameters_iii_d1 = new SqlParameter[]
                     {
-                        string iii_D1 = "select answer from Question_D2 where D1_id=@D1_id";
-                        SqlParameter[] sqlParameters_iii_d1 = new SqlParameter[]
-                        {
                             new SqlParameter("D1_id",sqlData_all["D1_id"].ToString())
-                        };
-                   string want_data = sqlhelp.executeScalarsql(iii_D1, sqlParameters_iii_d1, false).ToString();
-                        all_list= want_data.Split(';');
+                    };
+                    string want_data = sqlhelp.executeScalarsql(iii_D1, sqlParameters_iii_d1, false).ToString();
+                    all_list = want_data.Split(';');
+
+
+                    // Define the name and type of the client scripts on the page.
+                   
+
+                    // Get a ClientScriptManager reference from the Page class.
+                   
+                    HtmlstringBuilder.Append("<canvas id = 'myChart"+ sqlData_all["D1_id"].ToString()+"' width = '400' height = '400' ></canvas>");
+                    Literal1.Text= HtmlstringBuilder.ToString();
+                    // Check to see if the startup script is already registered.
+                   
+
+                   
+
+
+                        cstext1.Append("<script type=text/javascript>");
+                        //01
+                        cstext1.Append("var ctx = document.getElementById('myChart"+ sqlData_all["D1_id"].ToString() + "');");
+                        cstext1.Append("var myChart = new Chart(ctx, {");
+                        cstext1.Append("type: 'bar',");
+                        cstext1.Append("data: {");
+
+                        cstext1.Append("labels: [");
+
+
+                        for (int i = 0; i < all_list.Count(); i++)
+                        {
+                            cstext1.Append("'" + all_list[i] + "'");
+                            for (int j = 0; j < all_list.Length - 1; j++)
+                            {
+                                cstext1.Append(",");
+                            }
+                        }
+                        //cstext1.Append("'一月', '二月'");
+
+                        cstext1.Append("],");
+                        cstext1.Append(" datasets: [{");
+                        cstext1.Append(" backgroundColor: [");
+                        cstext1.Append("'rgba(255, 99, 132, 0.2)',");
+                        cstext1.Append("'rgba(54, 162, 235, 0.2)'");
+                        cstext1.Append(" ],");
+                        cstext1.Append("borderColor: [");
+                        cstext1.Append("'rgba(255,99,132,1)',");
+                        cstext1.Append("'rgba(54, 162, 235, 1)',");
+                        cstext1.Append("'rgba(255, 206, 86, 1)',");
+                        cstext1.Append("'rgba(75, 192, 192, 1)'");
+                        cstext1.Append("],");
+                        cstext1.Append("borderWidth: 1,");
+                        cstext1.Append("label: '測試單選(必填)',");
+
+                        cstext1.Append("data: [60, 49, 72]");
+
+                        cstext1.Append("}]");
+                        cstext1.Append("}");
+                        cstext1.Append("});");
+                        //01
                        
-                    }
+                        cstext1.Append("</script>");
+
+             
                 }
-                for (int i = 0; i < all_list.Count(); i++)
-                {
-                    cstext1.Append("'"+all_list[i]+"'");
-                    for (int j = 0; j <all_list.Length-1; j++)
-                    {
-                        cstext1.Append(",");
-                    }
-                }
-                //cstext1.Append("'一月', '二月'");
 
-                cstext1.Append("],");
-                cstext1.Append(" datasets: [{");
-                cstext1.Append(" backgroundColor: [");
-                cstext1.Append("'rgba(255, 99, 132, 0.2)',");
-                cstext1.Append("'rgba(54, 162, 235, 0.2)'");
-                cstext1.Append(" ],");
-                cstext1.Append("borderColor: [");
-                cstext1.Append("'rgba(255,99,132,1)',");
-                cstext1.Append("'rgba(54, 162, 235, 1)',");
-                cstext1.Append("'rgba(255, 206, 86, 1)',");
-                cstext1.Append("'rgba(75, 192, 192, 1)'");
-                cstext1.Append("],");
-                cstext1.Append("borderWidth: 1,");
-                cstext1.Append("label: '測試單選(必填)',");
 
-                cstext1.Append("data: [60, 49, 72]");
-
-                cstext1.Append("}]");
-                cstext1.Append("}");
-                cstext1.Append("});");
-                //01
-                //02
-                cstext1.Append("var ctx = document.getElementById('myChart2');");
-                cstext1.Append("var myChart = new Chart(ctx, {");
-                cstext1.Append("type: 'bar',");
-                cstext1.Append("data: {");
-                cstext1.Append("labels: ['一月', '二月'],");
-                cstext1.Append(" datasets: [{");
-                cstext1.Append(" backgroundColor: [");
-                cstext1.Append("'rgba(255, 99, 132, 0.2)',");
-                cstext1.Append("'rgba(54, 162, 235, 0.2)'");
-                cstext1.Append(" ],");
-                cstext1.Append("borderColor: [");
-                cstext1.Append("'rgba(255,99,132,1)',");
-                cstext1.Append("'rgba(54, 162, 235, 1)',");
-                cstext1.Append("'rgba(255, 206, 86, 1)',");
-                cstext1.Append("'rgba(75, 192, 192, 1)'");
-                cstext1.Append("],");
-                cstext1.Append("borderWidth: 1,");
-                cstext1.Append("label: '測試複選(必填)',");
-                cstext1.Append("data: [60, 49, 72]");
-                cstext1.Append("}]");
-                cstext1.Append("}");
-                cstext1.Append("});");
-                //02
-                cstext1.Append("</script>");
-
-                cs.RegisterStartupScript(cstype, csname1, cstext1.ToString());
+       cs.RegisterStartupScript(cstype, csname1, cstext1.ToString());    
+                    ////////////////
+                    ///     }
+               
             }
-            ////////////////
         }
-
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
