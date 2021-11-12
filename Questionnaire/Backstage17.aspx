@@ -8,7 +8,7 @@
     <script src="Scripts/jquery-3.4.1.min.js"></script>
     <link href="Scripts/jqueryui/jquery-ui.css" rel="stylesheet" />
     <script src="Scripts/jqueryui/jquery-ui.js"></script>
-
+    <script src="Scripts/chartmy.js"></script>
     <style>
         #tab-demo {
             width: 1200px;
@@ -181,8 +181,10 @@
 
                 </div>
                 <div id="tab02" class="tab-inner" style="display: none">
-                    22
-                   
+                    <%--統計--%>
+                    <canvas id="myChart" width="400" height="400"></canvas>
+
+                   <%--統計--%>
                 </div>
 
             </div>
