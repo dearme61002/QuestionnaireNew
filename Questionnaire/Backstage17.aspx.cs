@@ -385,7 +385,8 @@ namespace Questionnaire
                         cstext1.Append("'rgba(75, 192, 192, 1)'");
                         cstext1.Append("],");
                         cstext1.Append("borderWidth: 1,");
-                        cstext1.Append("label: '測試單選(必填)',");
+                 
+                        cstext1.Append("label: '"+sqlData_all["D1_title"] + "',");
 
                         cstext1.Append("data: [60, 49, 72]");
 
