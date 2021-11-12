@@ -19,8 +19,11 @@ namespace Questionnaire
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
+
+
                 if (Request.QueryString["M_id"] != null && Request.QueryString["AM_id"] != null)
                 {
                     string answer_M_id = Request.QueryString["M_id"];
@@ -311,10 +314,14 @@ namespace Questionnaire
                 //
             }
             /////
-            string all_title_sql = "select* from Question_D1 where M_id = 24";
+            string all_title_sql = "select * from Question_D1 where M_id = @M_id";
+            SqlParameter[] sqls_all_P = new SqlParameter[]
+            {
+                new SqlParameter("@M_id",Request.QueryString["M_id"])
+            };
             string[] all_list = { };
             StringBuilder HtmlstringBuilder = new StringBuilder();
-            SqlDataReader sqlData_all = sqlhelp.executeReadesql(all_title_sql);
+            SqlDataReader sqlData_all = sqlhelp.executeReadesql(all_title_sql,sqls_all_P,false);
            StringBuilder cstext1 = new StringBuilder();
  ClientScriptManager cs = Page.ClientScript;
  String csname1 = "PopupScript";
