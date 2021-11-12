@@ -326,8 +326,39 @@ namespace Questionnaire
 
 
                 cstext1.Append("<script type=text/javascript>");
-
+                //01
                 cstext1.Append("var ctx = document.getElementById('myChart');");
+                cstext1.Append("var myChart = new Chart(ctx, {");
+                cstext1.Append("type: 'bar',");
+                cstext1.Append("data: {");
+
+                cstext1.Append("labels: [");
+
+                cstext1.Append("'一月', '二月'");
+
+                cstext1.Append("],");
+                cstext1.Append(" datasets: [{");
+                cstext1.Append(" backgroundColor: [");
+                cstext1.Append("'rgba(255, 99, 132, 0.2)',");
+                cstext1.Append("'rgba(54, 162, 235, 0.2)'");
+                cstext1.Append(" ],");
+                cstext1.Append("borderColor: [");
+                cstext1.Append("'rgba(255,99,132,1)',");
+                cstext1.Append("'rgba(54, 162, 235, 1)',");
+                cstext1.Append("'rgba(255, 206, 86, 1)',");
+                cstext1.Append("'rgba(75, 192, 192, 1)'");
+                cstext1.Append("],");
+                cstext1.Append("borderWidth: 1,");
+                cstext1.Append("label: '測試單選(必填)',");
+
+                cstext1.Append("data: [60, 49, 72]");
+
+                cstext1.Append("}]");
+                cstext1.Append("}");
+                cstext1.Append("});");
+                //01
+                //02
+                cstext1.Append("var ctx = document.getElementById('myChart2');");
                 cstext1.Append("var myChart = new Chart(ctx, {");
                 cstext1.Append("type: 'bar',");
                 cstext1.Append("data: {");
@@ -344,14 +375,12 @@ namespace Questionnaire
                 cstext1.Append("'rgba(75, 192, 192, 1)'");
                 cstext1.Append("],");
                 cstext1.Append("borderWidth: 1,");
-                cstext1.Append("label: '銷售業績(百萬)',");
+                cstext1.Append("label: '測試複選(必填)',");
                 cstext1.Append("data: [60, 49, 72]");
                 cstext1.Append("}]");
                 cstext1.Append("}");
                 cstext1.Append("});");
-
-
-
+                //02
                 cstext1.Append("</script>");
 
                 cs.RegisterStartupScript(cstype, csname1, cstext1.ToString());

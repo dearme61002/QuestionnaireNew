@@ -183,7 +183,7 @@
                 <div id="tab02" class="tab-inner" style="display: none">
                     <%--統計--%>
                     <canvas id="myChart" width="400" height="400"></canvas>
-
+                    <canvas id="myChart2" width="400" height="400"></canvas>
                    <%--統計--%>
                 </div>
 
