@@ -334,7 +334,32 @@ namespace Questionnaire
 
                 cstext1.Append("labels: [");
 
-                cstext1.Append("'一月', '二月'");
+                string all_title_sql = "select* from Question_D1 where M_id = 24";
+                string[] all_list = { };
+                SqlDataReader sqlData_all= sqlhelp.executeReadesql(all_title_sql);
+                if (sqlData_all.HasRows)
+                {
+                    while (sqlData_all.Read())
+                    {
+                        string iii_D1 = "select answer from Question_D2 where D1_id=@D1_id";
+                        SqlParameter[] sqlParameters_iii_d1 = new SqlParameter[]
+                        {
+                            new SqlParameter("D1_id",sqlData_all["D1_id"].ToString())
+                        };
+                   string want_data = sqlhelp.executeScalarsql(iii_D1, sqlParameters_iii_d1, false).ToString();
+                        all_list= want_data.Split(';');
+                       
+                    }
+                }
+                for (int i = 0; i < all_list.Count(); i++)
+                {
+                    cstext1.Append("'"+all_list[i]+"'");
+                    for (int j = 0; j <all_list.Length-1; j++)
+                    {
+                        cstext1.Append(",");
+                    }
+                }
+                //cstext1.Append("'一月', '二月'");
 
                 cstext1.Append("],");
                 cstext1.Append(" datasets: [{");
