@@ -91,20 +91,35 @@ namespace Questionnaire
                     }
                     ////調轉到tab02
 
+
+
+
+
+
+
+
+
                 }
 
                 //接著寫 取值 給值
+            /*增加常用問題*/
+            string selete_item_add = "select * from My_save";
+            SqlDataReader sqlData_item_add = sqlhelp.executeReadesql(selete_item_add);
+            if (sqlData_item_add.HasRows)
+            {
+                while (sqlData_item_add.Read())
+                {
+                    DropDownList1.Items.Add(new ListItem(sqlData_item_add["save_name"].ToString(), sqlData_item_add["save_id"].ToString()));
+
+                }
+            }
+
+                sqlData_item_add.Close();
+            /*增加常用問題*/
 
 
             }
 
-
-
-            /*增加常用問題*/
-
-
-
-            /*增加常用問題*/
 
         }
 
@@ -433,6 +448,53 @@ namespace Questionnaire
             }
 
             GridView1.DataBind();
+        }
+
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string save_id = DropDownList1.SelectedValue;
+
+            if(save_id == "mq")
+            {
+                answer_TextBox.Text = string.Empty;
+                D1_title_TextBox.Text = string.Empty;
+                D1_type_DropDownList.SelectedIndex = 0;
+            }
+            else
+            {
+                string sql = "select * from My_save where save_id = @save_id";
+                SqlParameter[] sqlParameters = new SqlParameter[]
+                {
+                    new SqlParameter("@save_id",save_id)
+                };
+               SqlDataReader sqlDataReader = sqlhelp.executeReadesql(sql, sqlParameters,false);
+                if (sqlDataReader.HasRows)
+                {
+                    sqlDataReader.Read();
+                    answer_TextBox.Text = sqlDataReader["save_answer"].ToString();
+                    D1_title_TextBox.Text = sqlDataReader["save_question"].ToString();
+                    D1_type_DropDownList.SelectedValue = sqlDataReader["save_type"].ToString().Replace(" ",string.Empty);
+                }
+                sqlDataReader.Close();
+            }
+
+            ////調轉到tab02
+            String csname1 = "PopupScript";
+            Type cstype = this.GetType();
+
+            // Get a ClientScriptManager reference from the Page class.
+            ClientScriptManager cs = Page.ClientScript;
+
+            // Check to see if the startup script is already registered.
+
+            if (!cs.IsStartupScriptRegistered(cstype, csname1))
+            {
+                StringBuilder cstext1 = new StringBuilder();
+                cstext1.Append("<script type=text/javascript> document.getElementById('tab01').style.display = 'none'; document.getElementById('tab02').style.display = 'block'; document.getElementById('litab01top').style.borderBottom = '1px solid #BCBCBC';document.getElementById('litab01top').style.backgroundColor = '#BCBCBC';document.getElementById('litab02top').style.borderBottom = 'none';document.getElementById('litab02top').style.backgroundColor = 'white';  </");
+                cstext1.Append("script>");
+
+                cs.RegisterStartupScript(cstype, csname1, cstext1.ToString());
+            }
         }
     }
 }

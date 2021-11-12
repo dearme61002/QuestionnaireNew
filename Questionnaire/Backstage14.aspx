@@ -155,7 +155,7 @@
                 <div id="tab02" class="tab-inner" style="display:none">
                     <div>
                         <span>種類</span>
-                        <asp:DropDownList ID="DropDownList1" runat="server">
+                        <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
                             <asp:ListItem Value="mq">自訂問題</asp:ListItem>
                         </asp:DropDownList>
                     </div>

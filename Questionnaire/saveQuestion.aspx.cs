@@ -66,7 +66,7 @@ namespace Questionnaire
             {
 
                 Label mytype_label = (Label)GridView1.Rows[i].FindControl("My_type");
-                string Mytype_value = GridView1.Rows[i].Cells[0].Text.Replace(" ", String.Empty); ;
+                string Mytype_value = GridView1.Rows[i].Cells[0].Text.Replace(" ", String.Empty); 
                 string value_type = string.Empty;
                 switch (Mytype_value)
                 {
