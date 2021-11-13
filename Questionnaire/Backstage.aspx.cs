@@ -24,15 +24,15 @@ namespace Questionnaire
                     DateTime lastTime = DateTime.Parse(((Label)GridView1.Rows[i].FindControl("Label1")).Text);
                     if (DateTime.UtcNow > lastTime)
                     {
-                        HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
-                        dd.NavigateUrl = string.Empty;
+                        //HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                        //dd.NavigateUrl = string.Empty;
                         Label state = (Label)GridView1.Rows[i].FindControl("state");
-                        state.Text = "已關閉";
+                        state.Text = "已完結";
                     }
                     else
                     {
                         Label state = (Label)GridView1.Rows[i].FindControl("state");
-                        state.Text = "已開放";
+                        state.Text = "投票中";
                     }
                 }
 
@@ -136,15 +136,15 @@ namespace Questionnaire
                 DateTime lastTime = DateTime.Parse(((Label)GridView1.Rows[i].FindControl("Label1")).Text);
                 if (DateTime.UtcNow > lastTime)
                 {
-                    HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
-                    dd.NavigateUrl = string.Empty;
+                    //HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                    //dd.NavigateUrl = string.Empty;
                     Label state = (Label)GridView1.Rows[i].FindControl("state");
-                    state.Text = "已關閉";
+                    state.Text = "已完結";
                 }
                 else
                 {
                     Label state = (Label)GridView1.Rows[i].FindControl("state");
-                    state.Text = "已開放";
+                    state.Text = "投票中";
                 }
             }
 
@@ -180,8 +180,8 @@ namespace Questionnaire
                 DateTime lastTime = DateTime.Parse(((Label)GridView1.Rows[i].FindControl("Label1")).Text);
                 if (DateTime.UtcNow > lastTime)
                 {
-                    HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
-                    dd.NavigateUrl = string.Empty;
+                    //HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                    //dd.NavigateUrl = string.Empty;
                     Label state = (Label)GridView1.Rows[i].FindControl("state");
                     state.Text = "已完結";
                 }
