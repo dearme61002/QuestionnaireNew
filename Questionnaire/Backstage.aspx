@@ -97,6 +97,12 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:HyperLinkField DataNavigateUrlFields="M_id" DataNavigateUrlFormatString="front10.aspx?M_id={0}" HeaderText="觀看統計" Text="前往" />
+                        <asp:TemplateField HeaderText="是否開啟">
+                           <ItemTemplate>
+                               <asp:HyperLink ID="HyperLink_open" runat="server">開啟</asp:HyperLink>
+                           </ItemTemplate>
+
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
 

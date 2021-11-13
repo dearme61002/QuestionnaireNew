@@ -27,7 +27,10 @@ namespace Questionnaire
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {  
+            {
+                CheckBox1.Checked = true;
+
+
                 if (Request.QueryString["Change_id"] != null)
             {//編寫功能
                 string my_chang_value = Request.QueryString["Change_id"];
@@ -131,14 +134,16 @@ namespace Questionnaire
             string M_summary_Add = TextBoxM_summary.Text;
             DateTime start_time_Add = Convert.ToDateTime(txtStartDate.Text);
             DateTime end_time_Add = Convert.ToDateTime(txtEndDate.Text);
+            Boolean my_open = CheckBox1.Checked;
             //讀資料1
-            string M_queation_sql = "INSERT INTO Question_M (M_title,start_time,end_time,M_summary) VALUES (@M_title, @start_time,@end_time,@M_summary);";
+            string M_queation_sql = "INSERT INTO Question_M (M_title,start_time,end_time,M_summary,M_open) VALUES (@M_title, @start_time,@end_time,@M_summary,@M_open);";
             SqlParameter[] sqlParameters_M = new SqlParameter[]
             {
                 new SqlParameter("@M_title",Title_Add),
                 new SqlParameter("@start_time",start_time_Add),
                 new SqlParameter("@end_time",end_time_Add),
-                new SqlParameter("@M_summary",M_summary_Add)
+                new SqlParameter("@M_summary",M_summary_Add),
+                new SqlParameter("@M_open",my_open)
             };
             sqlhelp.executeNonQuerysql(M_queation_sql, sqlParameters_M, false);
             string M_id_sql = "select MAX(M_id) from Question_M";

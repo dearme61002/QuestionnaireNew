@@ -16,8 +16,33 @@ namespace Questionnaire
         {
             if (!IsPostBack)
             {
+                //開放
+               if(Request.QueryString["open_state"]!=null & Request.QueryString["M_id"]!=null)
+                {
+                    string get_open = Request.QueryString["open_state"];
+                    string get_M_id = Request.QueryString["M_id"];
+                    if(get_open== "open")
+                    {
+                        string change_open_sql = "Update Question_M Set M_open= 0 where M_id=@M_id";
+                        SqlParameter[] sqlParameters_change_open = new SqlParameter[]
+                        {
+                            new SqlParameter("@M_id",get_M_id)
+                        };
+                        sqlhelp.executeNonQuerysql(change_open_sql, sqlParameters_change_open, false);
 
-            
+                    }
+                    else
+                    {
+                        string change_open_sql = "Update Question_M Set M_open= 1 where M_id=@M_id";
+                        SqlParameter[] sqlParameters_change_open = new SqlParameter[]
+                        {
+                            new SqlParameter("@M_id",get_M_id)
+                        };
+                        sqlhelp.executeNonQuerysql(change_open_sql, sqlParameters_change_open, false);
+                    }
+                }
+                //開放
+
                 GridView1.DataSourceID = "SqlDataSourceALL";
                 for (int i = 0; i < GridView1.Rows.Count; i++)
                 {
@@ -35,8 +60,32 @@ namespace Questionnaire
                         state.Text = "投票中";
                     }
                 }
-
-
+                //開放
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    string my_min = GridView1.Rows[i].Cells[1].Text;
+                    string opensql = "select M_open from Question_M where M_id=@M_id";
+                    SqlParameter[] sqlParameters_open = new SqlParameter[]
+                    {
+                        new SqlParameter("M_id",my_min)
+                    };
+                    Boolean open_bool = Convert.ToBoolean(sqlhelp.executeScalarsql(opensql, sqlParameters_open, false));
+                    if (open_bool)
+                    {
+                        //HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                        //dd.NavigateUrl = string.Empty;
+                        HyperLink hyperLink_open = (HyperLink)GridView1.Rows[i].FindControl("HyperLink_open");
+                        hyperLink_open.NavigateUrl = "Backstage.aspx?open_state=open&"+"M_id="+my_min;
+                        hyperLink_open.Text = "開放";
+                    }
+                    else
+                    {
+                        HyperLink hyperLink_open = (HyperLink)GridView1.Rows[i].FindControl("HyperLink_open");
+                        hyperLink_open.NavigateUrl = "Backstage.aspx?open_state=close&" + "M_id=" + my_min;
+                        hyperLink_open.Text = "關閉";
+                    }
+                }
+                //
             }
 
         }
