@@ -321,11 +321,11 @@ namespace Questionnaire
             };
             string[] all_list = { };
             StringBuilder HtmlstringBuilder = new StringBuilder();
-            SqlDataReader sqlData_all = sqlhelp.executeReadesql(all_title_sql,sqls_all_P,false);
-           StringBuilder cstext1 = new StringBuilder();
- ClientScriptManager cs = Page.ClientScript;
- String csname1 = "PopupScript";
-                    Type cstype = this.GetType();
+            SqlDataReader sqlData_all = sqlhelp.executeReadesql(all_title_sql, sqls_all_P, false);
+            StringBuilder cstext1 = new StringBuilder();
+            ClientScriptManager cs = Page.ClientScript;
+            String csname1 = "PopupScript";
+            Type cstype = this.GetType();
             if (sqlData_all.HasRows)
             {
                 while (sqlData_all.Read())
@@ -340,71 +340,113 @@ namespace Questionnaire
 
 
                     // Define the name and type of the client scripts on the page.
-                   
+
 
                     // Get a ClientScriptManager reference from the Page class.
-                   
-                    HtmlstringBuilder.Append("<canvas id = 'myChart"+ sqlData_all["D1_id"].ToString()+"' width = '400' height = '400' ></canvas>");
-                    Literal1.Text= HtmlstringBuilder.ToString();
+
+                    HtmlstringBuilder.Append("<canvas id = 'myChart" + sqlData_all["D1_id"].ToString() + "' width = '400' height = '400' ></canvas>");
+                    Literal1.Text = HtmlstringBuilder.ToString();
                     // Check to see if the startup script is already registered.
-                   
-
-                   
 
 
-                        cstext1.Append("<script type=text/javascript>");
-                        //01
-                        cstext1.Append("var ctx = document.getElementById('myChart"+ sqlData_all["D1_id"].ToString() + "');");
-                        cstext1.Append("var myChart = new Chart(ctx, {");
-                        cstext1.Append("type: 'bar',");
-                        cstext1.Append("data: {");
-
-                        cstext1.Append("labels: [");
 
 
-                        for (int i = 0; i < all_list.Count(); i++)
+
+                    cstext1.Append("<script type=text/javascript>");
+                    //01
+                    cstext1.Append("var ctx = document.getElementById('myChart" + sqlData_all["D1_id"].ToString() + "');");
+                    cstext1.Append("var myChart = new Chart(ctx, {");
+                    cstext1.Append("type: 'bar',");
+                    cstext1.Append("data: {");
+
+                    cstext1.Append("labels: [");
+
+
+                    for (int i = 0; i < all_list.Count(); i++)
+                    {
+                        cstext1.Append("'" + all_list[i] + "'");
+                        for (int j = 0; j < all_list.Length - 1; j++)
                         {
-                            cstext1.Append("'" + all_list[i] + "'");
-                            for (int j = 0; j < all_list.Length - 1; j++)
+                            cstext1.Append(",");
+                        }
+                    }
+                    //cstext1.Append("'一月', '二月'");
+
+                    cstext1.Append("],");
+                    cstext1.Append(" datasets: [{");
+                    cstext1.Append(" backgroundColor: [");
+                    cstext1.Append("'rgba(255, 99, 132, 0.2)',");
+                    cstext1.Append("'rgba(54, 162, 235, 0.2)'");
+                    cstext1.Append(" ],");
+                    cstext1.Append("borderColor: [");
+                    cstext1.Append("'rgba(255,99,132,1)',");
+                    cstext1.Append("'rgba(54, 162, 235, 1)',");
+                    cstext1.Append("'rgba(255, 206, 86, 1)',");
+                    cstext1.Append("'rgba(75, 192, 192, 1)'");
+                    cstext1.Append("],");
+                    cstext1.Append("borderWidth: 1,");
+
+                    cstext1.Append("label: '" + sqlData_all["D1_title"] + "',");
+
+                    //給數字
+                    cstext1.Append("data: [");
+
+                    string sss_sql = "select * from Answer_D1 where D1_id=@D1_id";
+                    List<string> list_sss_answer = new List<string>();
+                    SqlParameter[] sqls_ssss = new SqlParameter[]
+                    {
+                        new SqlParameter("D1_id",sqlData_all["D1_id"])
+                    };
+                    SqlDataReader sqlDataReader_sss = sqlhelp.executeReadesql(sss_sql, sqls_ssss, false);
+                    if (sqlDataReader_sss.HasRows)
+                    {
+                        while (sqlDataReader_sss.Read())
+                        {
+                            list_sss_answer.Add(sqlDataReader_sss["Answer"].ToString());
+
+                        };
+                    }
+
+                    for (int i = 0; i < all_list.Count(); i++)
+                    {
+                        int mycount_sss = 0;
+                        for (int w = 0; w < list_sss_answer.Count(); w++)
+                        {
+                            if (all_list[i] == list_sss_answer[w])
                             {
-                                cstext1.Append(",");
+                                mycount_sss++;
                             }
                         }
-                        //cstext1.Append("'一月', '二月'");
 
-                        cstext1.Append("],");
-                        cstext1.Append(" datasets: [{");
-                        cstext1.Append(" backgroundColor: [");
-                        cstext1.Append("'rgba(255, 99, 132, 0.2)',");
-                        cstext1.Append("'rgba(54, 162, 235, 0.2)'");
-                        cstext1.Append(" ],");
-                        cstext1.Append("borderColor: [");
-                        cstext1.Append("'rgba(255,99,132,1)',");
-                        cstext1.Append("'rgba(54, 162, 235, 1)',");
-                        cstext1.Append("'rgba(255, 206, 86, 1)',");
-                        cstext1.Append("'rgba(75, 192, 192, 1)'");
-                        cstext1.Append("],");
-                        cstext1.Append("borderWidth: 1,");
-                 
-                        cstext1.Append("label: '"+sqlData_all["D1_title"] + "',");
 
-                        cstext1.Append("data: [60, 49, 72]");
 
-                        cstext1.Append("}]");
-                        cstext1.Append("}");
-                        cstext1.Append("});");
-                        //01
-                       
-                        cstext1.Append("</script>");
+                        cstext1.Append(mycount_sss);
+                        for (int j = 0; j < all_list.Length - 1; j++)
+                        {
+                            cstext1.Append(",");
+                        }
+                    }
 
-             
+
+                    //cstext1.Append("60, 49, 72");
+
+
+                    cstext1.Append("]");
+                    cstext1.Append("}]");
+                    cstext1.Append("}");
+                    cstext1.Append("});");
+                    //01
+
+                    cstext1.Append("</script>");
+                   
+ sqlDataReader_sss.Close();
                 }
 
 
-       cs.RegisterStartupScript(cstype, csname1, cstext1.ToString());    
-                    ////////////////
-                    ///     }
-               
+                cs.RegisterStartupScript(cstype, csname1, cstext1.ToString());
+                ////////////////
+                ///     }
+
             }
         }
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -456,8 +498,8 @@ namespace Questionnaire
                     B17exel my_out_b17 = new B17exel();
                     my_out_b17.M_title = (string)sqlData_b17["M_title"];
                     my_out_b17.M_summary = (string)sqlData_b17["M_summary"];
-                    
-        
+
+
                     my_out_b17.name = (string)sqlData_b17["name"];
                     my_out_b17.age = (int)sqlData_b17["age"];
                     my_out_b17.email = (string)sqlData_b17["email"];
@@ -482,7 +524,7 @@ namespace Questionnaire
             string my_title = sqlhelp.executeScalarsql(my_title_sql, sqlParameter_MY_title, false).ToString();
 
             DAL.Open_urlPath open_UrlPath = new Open_urlPath();
-            open_UrlPath.setExcel_Title(my_title,"標題","副標題", "開始時間", "結束時間","姓名", "電話", "電子郵件","年齡","填寫時間");
+            open_UrlPath.setExcel_Title(my_title, "標題", "副標題", "開始時間", "結束時間", "姓名", "電話", "電子郵件", "年齡", "填寫時間");
             open_UrlPath.setExcel_MyList_data(mydata_b17s_list);
             System.Threading.Thread s = new System.Threading.Thread(new System.Threading.ThreadStart(open_UrlPath.getExcel));
             s.ApartmentState = System.Threading.ApartmentState.STA;
@@ -495,7 +537,7 @@ namespace Questionnaire
             //XSSFWorkbook workbook = new XSSFWorkbook();
             //ISheet u_sheet = workbook.CreateSheet(" 簡單統計報表_sjeet");
 
-           
+
             //
 
 
