@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -30,8 +32,26 @@ namespace Questionnaire
                         state.Text = "投票中";
                     }
                 }
-                
 
+                string sql_open_state = "select * from Question_M";
+                SqlDataReader sqlDataReader_open = sqlhelp.executeReadesql(sql_open_state);
+                if (sqlDataReader_open.HasRows)
+                {
+                    int i = 0;
+                    while (sqlDataReader_open.Read())
+                    {
+                        if(GridView1.Rows[i].Cells[0].Text == sqlDataReader_open["M_id"].ToString())
+                        {
+                            if (!(Boolean)sqlDataReader_open["M_open"])
+                            {
+                             HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                            dd.NavigateUrl = string.Empty;
+                            }
+                            
+                        }
+                        i++;
+                    }
+                }
 
             }
         }
