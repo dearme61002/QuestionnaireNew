@@ -34,7 +34,7 @@
                 <div style="margin-top: 250px">
                     <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="front06.aspx">前台管理</asp:HyperLink>
                     <br />
-                    <asp:HyperLink ID="HyperLink2" runat="server">常見問題管理</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="saveQuestion.aspx">常見問題管理</asp:HyperLink>
                 </div>
 
             </div>
@@ -46,8 +46,8 @@
                     <span style="margin-right: 20px; font-size: 30px">開始/結束</span>
                     <asp:TextBox ID="txtStartDate" runat="server" Height="20px" Style="font-size: 30px; line-height: 30px" onkeydown="return false;" autocomplete="off"></asp:TextBox>
                     <asp:TextBox ID="txtEndDate" runat="server" Height="20px" Style="font-size: 30px; line-height: 30px" onkeydown="return false;" autocomplete="off"></asp:TextBox>
-                    <asp:Button ID="searchButton" runat="server" Text="搜尋" Height="30px" Style="font-size: 20px; line-height: 20px" />
-                    <asp:Button ID="ButtonCancel" runat="server" Text="取消" Height="30px" Style="font-size: 20px; line-height: 20px" />
+                    <asp:Button ID="searchButton" runat="server" Text="搜尋" Height="30px" Style="font-size: 20px; line-height: 20px" OnClick="searchButton_Click" />
+                    <asp:Button ID="ButtonCancel" runat="server" Text="取消" Height="30px" Style="font-size: 20px; line-height: 20px" OnClick="ButtonCancel_Click" />
                 </div>
 
             </div>
@@ -101,6 +101,27 @@
                 </asp:GridView>
 
                 <asp:SqlDataSource ID="SqlDataSourceALL" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [M_id], [M_title], [start_time], [end_time] FROM [Question_M]"></asp:SqlDataSource>
+
+                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [start_time], [end_time], [M_id], [M_title] FROM [Question_M] WHERE ([M_title] LIKE '%' + @M_title + '%')">
+                        <SelectParameters>
+                            <asp:ControlParameter ControlID="TitleTextBoxSearch" Name="M_title" PropertyName="Text" Type="String" />
+                        </SelectParameters>
+                    </asp:SqlDataSource>
+
+                <asp:SqlDataSource ID="SqlDataSourceTIME" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [start_time], [end_time], [M_title], [M_id] FROM [Question_M] WHERE (([start_time] &gt;= @start_time) AND ([end_time] &lt;= @end_time))">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="txtStartDate" Name="start_time" PropertyName="Text" Type="DateTime" />
+                <asp:ControlParameter ControlID="txtEndDate" Name="end_time" PropertyName="Text" Type="DateTime" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSourcefalst" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [start_time], [end_time], [M_title], [M_id] FROM [Question_M] WHERE (([M_title] LIKE '%' + @M_title + '%') AND ([start_time] &gt;= @start_time) AND ([end_time] &lt;= @end_time))">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="TitleTextBoxSearch" Name="M_title" PropertyName="Text" Type="String" />
+                <asp:ControlParameter ControlID="txtStartDate" Name="start_time" PropertyName="Text" Type="DateTime" />
+                <asp:ControlParameter ControlID="txtEndDate" Name="end_time" PropertyName="Text" Type="DateTime" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+
 
             </div>
             <%--表單製作--%>
