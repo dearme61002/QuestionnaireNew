@@ -196,6 +196,32 @@ namespace Questionnaire
                     state.Text = "投票中";
                 }
             }
+            //開放
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                string my_min = GridView1.Rows[i].Cells[1].Text;
+                string opensql = "select M_open from Question_M where M_id=@M_id";
+                SqlParameter[] sqlParameters_open = new SqlParameter[]
+                {
+                        new SqlParameter("M_id",my_min)
+                };
+                Boolean open_bool = Convert.ToBoolean(sqlhelp.executeScalarsql(opensql, sqlParameters_open, false));
+                if (open_bool)
+                {
+                    //HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                    //dd.NavigateUrl = string.Empty;
+                    HyperLink hyperLink_open = (HyperLink)GridView1.Rows[i].FindControl("HyperLink_open");
+                    hyperLink_open.NavigateUrl = "Backstage.aspx?open_state=open&" + "M_id=" + my_min;
+                    hyperLink_open.Text = "開放";
+                }
+                else
+                {
+                    HyperLink hyperLink_open = (HyperLink)GridView1.Rows[i].FindControl("HyperLink_open");
+                    hyperLink_open.NavigateUrl = "Backstage.aspx?open_state=close&" + "M_id=" + my_min;
+                    hyperLink_open.Text = "關閉";
+                }
+            }
+            //
 
         }
 
@@ -240,6 +266,32 @@ namespace Questionnaire
                     state.Text = "投票中";
                 }
             }
+            //開放
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                string my_min = GridView1.Rows[i].Cells[1].Text;
+                string opensql = "select M_open from Question_M where M_id=@M_id";
+                SqlParameter[] sqlParameters_open = new SqlParameter[]
+                {
+                        new SqlParameter("M_id",my_min)
+                };
+                Boolean open_bool = Convert.ToBoolean(sqlhelp.executeScalarsql(opensql, sqlParameters_open, false));
+                if (open_bool)
+                {
+                    //HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                    //dd.NavigateUrl = string.Empty;
+                    HyperLink hyperLink_open = (HyperLink)GridView1.Rows[i].FindControl("HyperLink_open");
+                    hyperLink_open.NavigateUrl = "Backstage.aspx?open_state=open&" + "M_id=" + my_min;
+                    hyperLink_open.Text = "開放";
+                }
+                else
+                {
+                    HyperLink hyperLink_open = (HyperLink)GridView1.Rows[i].FindControl("HyperLink_open");
+                    hyperLink_open.NavigateUrl = "Backstage.aspx?open_state=close&" + "M_id=" + my_min;
+                    hyperLink_open.Text = "關閉";
+                }
+            }
+            //
         }
 
         protected void ButtonCancel_Click(object sender, EventArgs e)
@@ -265,6 +317,32 @@ namespace Questionnaire
                     state.Text = "投票中";
                 }
             }
+            //開放
+            for (int i = 0; i < GridView1.Rows.Count; i++)
+            {
+                string my_min = GridView1.Rows[i].Cells[1].Text;
+                string opensql = "select M_open from Question_M where M_id=@M_id";
+                SqlParameter[] sqlParameters_open = new SqlParameter[]
+                {
+                        new SqlParameter("M_id",my_min)
+                };
+                Boolean open_bool = Convert.ToBoolean(sqlhelp.executeScalarsql(opensql, sqlParameters_open, false));
+                if (open_bool)
+                {
+                    //HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                    //dd.NavigateUrl = string.Empty;
+                    HyperLink hyperLink_open = (HyperLink)GridView1.Rows[i].FindControl("HyperLink_open");
+                    hyperLink_open.NavigateUrl = "Backstage.aspx?open_state=open&" + "M_id=" + my_min;
+                    hyperLink_open.Text = "開放";
+                }
+                else
+                {
+                    HyperLink hyperLink_open = (HyperLink)GridView1.Rows[i].FindControl("HyperLink_open");
+                    hyperLink_open.NavigateUrl = "Backstage.aspx?open_state=close&" + "M_id=" + my_min;
+                    hyperLink_open.Text = "關閉";
+                }
+            }
+            //
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Questionnaire
                         state.Text = "投票中";
                     }
                 }
-
+                //關閉開啟表單
                 string sql_open_state = "select * from Question_M";
                 SqlDataReader sqlDataReader_open = sqlhelp.executeReadesql(sql_open_state);
                 if (sqlDataReader_open.HasRows)
@@ -52,7 +52,7 @@ namespace Questionnaire
                         i++;
                     }
                 }
-
+                ////關閉開啟表單
             }
         }
 
@@ -99,7 +99,27 @@ namespace Questionnaire
                     state.Text = "投票中";
                 }
             }
+            //關閉開啟表單
+            string sql_open_state = "select * from Question_M";
+            SqlDataReader sqlDataReader_open = sqlhelp.executeReadesql(sql_open_state);
+            if (sqlDataReader_open.HasRows)
+            {
+                int i = 0;
+                while (sqlDataReader_open.Read())
+                {
+                    if (GridView1.Rows[i].Cells[0].Text == sqlDataReader_open["M_id"].ToString())
+                    {
+                        if (!(Boolean)sqlDataReader_open["M_open"])
+                        {
+                            HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                            dd.NavigateUrl = string.Empty;
+                        }
 
+                    }
+                    i++;
+                }
+            }
+            ////關閉開啟表單
 
 
         }
@@ -127,6 +147,27 @@ namespace Questionnaire
                     state.Text = "投票中";
                 }
             }
+            //關閉開啟表單
+            string sql_open_state = "select * from Question_M";
+            SqlDataReader sqlDataReader_open = sqlhelp.executeReadesql(sql_open_state);
+            if (sqlDataReader_open.HasRows)
+            {
+                int i = 0;
+                while (sqlDataReader_open.Read())
+                {
+                    if (GridView1.Rows[i].Cells[0].Text == sqlDataReader_open["M_id"].ToString())
+                    {
+                        if (!(Boolean)sqlDataReader_open["M_open"])
+                        {
+                            HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                            dd.NavigateUrl = string.Empty;
+                        }
+
+                    }
+                    i++;
+                }
+            }
+            ////關閉開啟表單
         }
     }
 }
