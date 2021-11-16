@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.Expressions;
 using DAL;
 
 namespace Questionnaire
@@ -15,11 +17,17 @@ namespace Questionnaire
         int M_id = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["passworld_my"] != "OK")
+            {
+                Response.Redirect("Index.aspx");
+            }
+
+
 
             int D1_id = 0;
             string D1_title, D1_summary;
             Boolean D1_mustKeyin;
-            string StarTime=string.Empty;
+            string StarTime = string.Empty;
             string Endtime = string.Empty;
             //get的值
             string getM_id = Request.QueryString["M_id"];
@@ -29,24 +37,24 @@ namespace Questionnaire
             {
                 new SqlParameter("@M_id",getM_id)
             };
-            SqlDataReader dr = sqlhelp.executeReadesql(sql, Getsqls,false);
+            SqlDataReader dr = sqlhelp.executeReadesql(sql, Getsqls, false);
             Literal br = new Literal();
             br.Text = "</br>";
-            
-          
-           
+
+
+
             if (dr.HasRows)
             {
                 dr.Read();
                 Lable_M_title.Text = dr["M_title"].ToString();
-                Lable_M_Summary.Text = dr["M_summary"].ToString(); 
+                Lable_M_Summary.Text = dr["M_summary"].ToString();
                 StarTime = string.Format("{0:yyyy/MM/dd}", dr["start_time"]);
                 Endtime = string.Format("{0:yyyy/MM/dd}", dr["end_time"]);
                 M_id = (int)dr["M_id"];
                 dr.Close();
             }
             //投票中的時間
-            
+
             frontLabel1.Text = StarTime + "~" + Endtime;
             //讀取這一份問卷的每一個題目
             string sql2 = "select * from Question_D1 where M_id=@M_id";
@@ -159,6 +167,35 @@ namespace Questionnaire
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            string pattern_phone = @"\d{2}-\d{4}-\d{4}";
+            Regex rx_phone = new Regex(pattern_phone, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            string pattern_email = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            Regex rx_email = new Regex(pattern_email, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            string pattern_age = @"^[0-9]+$";
+            Regex rx_age=new Regex(pattern_age, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            //驗證
+            if (name.Text == string.Empty)
+            {
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('姓名要填寫');</script>");
+                return;
+            }
+            else if (!rx_phone.IsMatch(phone.Text.Replace(" ", string.Empty)))
+            {
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('電話填寫錯誤，格式為XX-XXXX-XXXX例如:02-1234-1234');</script>");
+                return;
+            }
+            else if (!rx_email.IsMatch(email.Text.Replace(" ", string.Empty))){
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('電子郵信填寫錯誤');</script>");
+                return;
+            }else if (!rx_age.IsMatch(age.Text.Replace(" ", string.Empty))){
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('年齡填寫錯誤');</script>");
+                return;
+            }
+
+                //驗證
+
+
+
             getPageA getPageA = new getPageA();
             int Qno = getPageA.Compute_QNo(M_id);//算出有幾個題目
             ArrayList D1_AL = getPageA.Take_D1_ID(M_id);
@@ -169,15 +206,15 @@ namespace Questionnaire
             int getage;
             try
             {
-              getage = Convert.ToInt32(age.Text);
+                getage = Convert.ToInt32(age.Text);
             }
             catch (Exception)
             {
                 getage = 0;
                 return;
             }
-             
-            into_Answer.pageAtoAnswer_M(AM_id, M_id,name.Text,phone.Text,email.Text, getage);
+
+            into_Answer.pageAtoAnswer_M(AM_id, M_id, name.Text, phone.Text, email.Text, getage);
 
 
             for (int i = 0; i < Qno; i++)
@@ -191,11 +228,21 @@ namespace Questionnaire
                         if (CBL2.SelectedItem == null)
                         {
                             Response.Write("null");
-                            into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), string.Empty);
+                           Boolean bb_must4= into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), string.Empty);
+                            if (!bb_must4)
+                            {
+                                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('必選題沒有填寫錯);</script>");
+                                return;
+                            }
                         }
                         else
                         {
-                            into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), CBL2.SelectedItem.Text);
+                            Boolean bb_must3 = into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), CBL2.SelectedItem.Text);
+                            if (!bb_must3)
+                            {
+                                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('必選題沒有填寫');</script>");
+                                return;
+                            }
                             Response.Write(CBL2.SelectedItem.Text);
                         }
                         break;
@@ -209,20 +256,30 @@ namespace Questionnaire
                                 CBL1_Value = CBL1_Value + CBL1.Items[j].Text + ";";
                             }
                         }
-                        into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), CBL1_Value);
+                        Boolean bb_must = into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), CBL1_Value);
+                        if (!bb_must)
+                        {
+                            ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('必選題沒有填寫');</script>");
+                            return;
+                        }
                         Response.Write(CBL1_Value);
                         break;
-                        case "System.Web.UI.WebControls.TextBox":
+                    case "System.Web.UI.WebControls.TextBox":
                         TextBox CBL3 = (TextBox)PlaceHolder1.FindControl(WebcontrolID);
                         Response.Write(CBL3.Text);
-                        into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), CBL3.Text);
+                        Boolean bb_must2 = into_Answer.pageAtoAnswer_D1(AM_id, Convert.ToInt32(D1_AL[i]), CBL3.Text);
+                        if (!bb_must2)
+                        {
+                            ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('必選題沒有填寫');</script>");
+                            return;
+                        }
                         break;
                     default:
                         break;
                 };
             };
 
-            Response.Redirect("front10.aspx?M_id="+M_id);
+            Response.Redirect("front10.aspx?M_id=" + M_id);
         }
 
         protected void Button2_Click(object sender, EventArgs e)

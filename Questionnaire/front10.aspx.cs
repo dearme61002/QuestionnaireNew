@@ -15,6 +15,10 @@ namespace Questionnaire
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["passworld_my"] != "OK")
+            {
+                Response.Redirect("Index.aspx");
+            }
             //取資料
             //int getM_id = Request.QueryString["M_id"];//等等使用
             string getM_id = Request.QueryString["M_id"];//??

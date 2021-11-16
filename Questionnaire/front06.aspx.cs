@@ -15,7 +15,12 @@ namespace Questionnaire
         {
             if (!Page.IsPostBack)
             {
-                GridView1.DataSourceID = "SqlDataSourceALL";
+                if (Session["passworld_my"] != "OK" )
+                {
+                    Response.Redirect("Index.aspx");
+                }
+
+                    GridView1.DataSourceID = "SqlDataSourceALL";
                 for (int i = 0; i < GridView1.Rows.Count; i++)
                 {
                     DateTime lastTime = DateTime.Parse(((Label)GridView1.Rows[i].FindControl("Label1")).Text);

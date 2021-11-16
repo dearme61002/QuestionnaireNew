@@ -37,6 +37,22 @@ namespace DAL
         }
         public Boolean pageAtoAnswer_D1(string AM_id,int D1_id,string Answer)
         {
+            string must_sql = "select D1_mustKeyin from Question_D1 where D1_id =@D1_id;";
+            SqlParameter[] sqlParameters_must = new SqlParameter[]
+            {
+                new SqlParameter("@D1_id",D1_id)
+            };
+            Boolean must_true =Convert.ToBoolean(sqlhelp.executeScalarsql(must_sql, sqlParameters_must,false)) ;
+
+            if (must_true)
+            {
+                if (Answer == string.Empty)
+                {
+                    
+                    return false;
+                }
+            }
+
             string sql = "INSERT INTO Answer_D1(AM_id, Answer, D1_id) VALUES(@AM_id, @Answer, @D1_id);";
             SqlParameter[] sqlParameters = new SqlParameter[]
            {
