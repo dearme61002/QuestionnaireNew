@@ -114,7 +114,7 @@
                 <div style="margin-top: 250px">
                     <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Backstage.aspx">問卷管理</asp:HyperLink>
                     <br />
-                    <asp:HyperLink ID="HyperLink2" runat="server">常見問題管理</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="saveQuestion.aspx">常見問題管理</asp:HyperLink>
                 </div>
             </div>
 

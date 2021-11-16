@@ -21,6 +21,7 @@
         <div style="text-align:left;margin-top:20px">
              
              <asp:Button ID="Button2" runat="server" Text="回前台搜尋" Font-Size="35px" OnClick="Button2_Click" />
+             <asp:Button ID="Button3" runat="server" Text="回後台台搜尋" Font-Size="35px" OnClick="Button3_Click" />
         </div>
     </form>
 </div>

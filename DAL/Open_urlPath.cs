@@ -147,7 +147,7 @@ namespace DAL
 
                 SaveFileDialog dialog = new SaveFileDialog();
                     dialog.Title = "Save File";
-                    dialog.FileName = Myfilename+ DateTime.UtcNow.ToString("MMddyyyyhhmmssffftt") +".xls";  //檔名
+                    dialog.FileName = Myfilename+ DateTime.UtcNow.ToString("MMddyyyyhhmmss") +".xls";  //檔名
                     dialog.Filter = "Excel Files(*.xls)|*.xls";
                      dialog.ShowDialog();
 

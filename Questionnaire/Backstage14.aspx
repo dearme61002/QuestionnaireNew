@@ -115,9 +115,9 @@
             <asp:Label ID="Label1" runat="server" Text="後台管理增加問卷" Style="font-size: 100px"></asp:Label>
             <div style="float: left;">
                 <div style="margin-top: 250px">
-                    <asp:HyperLink ID="HyperLink1" runat="server">問卷管理</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Backstage.aspx">問卷管理</asp:HyperLink>
                     <br />
-                    <asp:HyperLink ID="HyperLink2" runat="server">常見問題管理</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="saveQuestion.aspx">常見問題管理</asp:HyperLink>
                 </div>
             </div>
 

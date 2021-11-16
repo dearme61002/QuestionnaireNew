@@ -263,5 +263,10 @@ namespace Questionnaire
         {
             Response.Redirect("front06.aspx");
         }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Backstage.aspx");
+        }
     }
 }
