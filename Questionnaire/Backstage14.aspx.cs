@@ -36,7 +36,7 @@ namespace Questionnaire
             if (!IsPostBack)
             {
                 CheckBox1.Checked = true;
-
+                txtStartDate.Text = DateTime.UtcNow.ToString("yyyy-MM-dd");
 
                 if (Request.QueryString["Change_id"] != null)
             {//編寫功能
