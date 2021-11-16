@@ -26,6 +26,13 @@ namespace Questionnaire
         //
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (Session["passworld_my"] != "OK")
+            {
+                Response.Redirect("Index.aspx");
+            }
+
+
             if (!IsPostBack)
             {
                 CheckBox1.Checked = true;
@@ -128,6 +135,28 @@ namespace Questionnaire
 
         protected void Button4_Click(object sender, EventArgs e)
         {
+            if (TextBox2Title.Text.Replace(" ", string.Empty) == string.Empty)
+            {
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('第一頁問卷名稱錯誤');</script>");
+                return;
+            }
+            else if (TextBoxM_summary.Text.Trim() == string.Empty)
+            {
+
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('第一頁描述內容錯誤');</script>");
+                return;
+            }
+            else if (txtStartDate.Text.Trim() == string.Empty)
+            {
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('第一頁開始時間沒填');</script>");
+                return;
+            }
+            else if (txtEndDate.Text.Trim() == string.Empty)
+            {
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('第一頁開始時間沒填');</script>");
+                return;
+            }
+
             //送出寫出資料庫按鈕
             //讀資料1
             string Title_Add = TextBox2Title.Text;
@@ -202,7 +231,21 @@ namespace Questionnaire
         protected void AddButton2_Click(object sender, EventArgs e)
         {
             //ghhg
+            //驗證
+           if(D1_title_TextBox.Text.Trim() == string.Empty)
+            {
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('第二頁問題沒填');document.getElementById('tab01').style.display = 'none'; document.getElementById('tab02').style.display = 'block'; document.getElementById('litab01top').style.borderBottom = '1px solid #BCBCBC'; document.getElementById('litab01top').style.backgroundColor = '#BCBCBC'; document.getElementById('litab02top').style.borderBottom = 'none'; document.getElementById('litab02top').style.backgroundColor = 'white';</script>");
+            
+                return;
+            }else if(answer_TextBox.Text.Trim() == string.Empty)
+            {
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('第二頁回答沒填');document.getElementById('tab01').style.display = 'none'; document.getElementById('tab02').style.display = 'block'; document.getElementById('litab01top').style.borderBottom = '1px solid #BCBCBC'; document.getElementById('litab01top').style.backgroundColor = '#BCBCBC'; document.getElementById('litab02top').style.borderBottom = 'none'; document.getElementById('litab02top').style.backgroundColor = 'white';</script>");
+    
+                return;
+            }
 
+
+            //驗證
            
 
 
@@ -276,8 +319,8 @@ namespace Questionnaire
                 cs.RegisterStartupScript(cstype, csname1, cstext1.ToString());
             }
 
+           
 
-            
 
 
 
