@@ -15,7 +15,7 @@ namespace Questionnaire
         {
             if (!Page.IsPostBack)
             {
-                 GridView1.DataSourceID = "SqlDataSourceALL";
+                GridView1.DataSourceID = "SqlDataSourceALL";
                 for (int i = 0; i < GridView1.Rows.Count; i++)
                 {
                     DateTime lastTime = DateTime.Parse(((Label)GridView1.Rows[i].FindControl("Label1")).Text);
@@ -40,14 +40,15 @@ namespace Questionnaire
                     int i = 0;
                     while (sqlDataReader_open.Read())
                     {
-                        if(GridView1.Rows[i].Cells[0].Text == sqlDataReader_open["M_id"].ToString())
+                        if (GridView1.Rows[i].Cells[0].Text == sqlDataReader_open["M_id"].ToString())
                         {
                             if (!(Boolean)sqlDataReader_open["M_open"])
                             {
-                             HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
-                            dd.NavigateUrl = string.Empty;
+                                HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                                dd.NavigateUrl = string.Empty;
+
                             }
-                            
+
                         }
                         i++;
                     }
@@ -63,6 +64,13 @@ namespace Questionnaire
 
         protected void searchButton_Click(object sender, EventArgs e)
         {
+
+            //驗證
+
+
+
+            //驗證
+
 
 
             if (TitleTextBoxSearch.Text == string.Empty && txtStartDate.Text == string.Empty && txtEndDate.Text == string.Empty)
@@ -82,7 +90,7 @@ namespace Questionnaire
                 GridView1.DataSourceID = "SqlDataSourcefalst";
 
             }
-           GridView1.DataBind();
+            GridView1.DataBind();
             for (int i = 0; i < GridView1.Rows.Count; i++)
             {
                 DateTime lastTime = DateTime.Parse(((Label)GridView1.Rows[i].FindControl("Label1")).Text);
@@ -99,24 +107,45 @@ namespace Questionnaire
                     state.Text = "投票中";
                 }
             }
+            GridView1.DataBind();
             //關閉開啟表單
-            string sql_open_state = "select * from Question_M";
+            string sql_open_state = "select * from Question_M  where M_open=0";
             SqlDataReader sqlDataReader_open = sqlhelp.executeReadesql(sql_open_state);
             if (sqlDataReader_open.HasRows)
             {
-                int i = 0;
+                List<string> ffdd_dds = new List<string>();
                 while (sqlDataReader_open.Read())
                 {
-                    if (GridView1.Rows[i].Cells[0].Text == sqlDataReader_open["M_id"].ToString())
+                    ffdd_dds.Add(sqlDataReader_open["M_id"].ToString());
+                }
+
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+
+
+                    // string fdf = sqlDataReader_open["M_id"].ToString();
+                    try
                     {
-                        if (!(Boolean)sqlDataReader_open["M_open"])
+
+                        foreach (var item in ffdd_dds)
                         {
-                            HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
-                            dd.NavigateUrl = string.Empty;
+                            if (GridView1.Rows[i].Cells[0].Text == item)
+                            {
+                               
+                                    HyperLink dd = (HyperLink)GridView1.Rows[i].FindControl("HyperLink1");
+                                    dd.NavigateUrl = string.Empty;
+                                
+                            }
                         }
 
+
+
                     }
-                    i++;
+                    catch (Exception f)
+                    {
+
+
+                    }
                 }
             }
             ////關閉開啟表單
