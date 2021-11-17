@@ -27,6 +27,9 @@
         <div style="margin-left: auto; margin-right: auto; width:1400px">
 
             <asp:Label ID="Label1" runat="server" Text="前台" Style="font-size: 100px"></asp:Label>
+                   
+                    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="Backstage.aspx">回到後台</asp:HyperLink></div>
+        
             <div style="width:1200px; margin-left: 50px; border: solid 1px black;">
                 <div>
                     <span style="margin-right: 20px; font-size: 30px">問卷標題</span><asp:TextBox ID="TitleTextBoxSearch" runat="server" Height="20px" Style="font-size: 30px; line-height: 30px"></asp:TextBox>
@@ -38,9 +41,11 @@
                     <asp:Button ID="searchButton" runat="server" Text="搜尋" Height="30px" Style="font-size: 20px; line-height: 20px" OnClick="searchButton_Click" />
                      <asp:Button ID="ButtonCancel" runat="server" Text="取消" Height="30px" Style="font-size: 20px; line-height: 20px" OnClick="ButtonCancel_Click" />
                 </div>
-                
-            </div>
-            <div style="margin-left:auto;margin-right:auto;width:1000px;text-align:center;margin-top:50px">
+             
+            <div style="margin-left:auto;margin-right:auto;margin-bottom:60px; width:1000px;text-align:center;margin-top:50px">
+         
+
+
 
                     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="M_id" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" style="width:900px" >
                         <Columns>
@@ -78,6 +83,9 @@
 
 
                 </div>
+                 
+                   
+            
         </div>
         <asp:SqlDataSource ID="SqlDataSourceALL" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [M_id], [M_title], [start_time], [end_time] FROM [Question_M]"></asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSourceTIME" runat="server" ConnectionString="<%$ ConnectionStrings:QuestionnaireConnectionString %>" SelectCommand="SELECT [start_time], [end_time], [M_title], [M_id] FROM [Question_M] WHERE (([start_time] &gt;= @start_time) AND ([end_time] &lt;= @end_time))">

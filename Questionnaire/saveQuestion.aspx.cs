@@ -13,14 +13,39 @@ namespace Questionnaire
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["passworld_my"] != "OK")
+            {
+                Response.Redirect("Index.aspx");
+            }
         }
 
         protected void Button1_Add_Click(object sender, EventArgs e)
         {
-            string name = TextBox1_name.Text;
-            string question = TextBox2_question.Text;
-            string answer = TextBox1_answer.Text;
+            //驗證
+            if(TextBox1_name.Text.Trim() == string.Empty)
+            {
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('常用問題選項名子沒填');</script>");
+
+                return;
+            }else if(TextBox2_question.Text.Trim() == string.Empty)
+            {
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('問題沒填');</script>");
+
+                return;
+            }else if(TextBox1_answer.Text.Trim() == string.Empty)
+            {
+                ClientScript.RegisterStartupScript(GetType(), "message", "<script> alert('回答沒填');</script>");
+
+                return;
+            }
+
+
+
+            //驗證
+
+            string name = TextBox1_name.Text.Trim();
+            string question = TextBox2_question.Text.Trim();
+            string answer = TextBox1_answer.Text.Trim();
             string type = DropDownList1_type.SelectedValue;
             string sql_add = "INSERT INTO My_save (save_name,save_question,save_answer,save_type)values(@save_name,@save_question,@save_answer,@save_type)";
             SqlParameter[] sqlParameters = new SqlParameter[]
