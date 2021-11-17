@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lom", "lom\lom.csproj", "{290A8B59-8328-43F7-AF1A-F2536A965D6E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "毛豆要先安裝這裡的資料庫", "毛豆要先安裝這裡的資料庫", "{D2364993-EAAA-48B7-A978-6EA76B371B6B}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Users\changtheworld\Documents\Questionscript.sql = ..\..\Users\changtheworld\Documents\Questionscript.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
